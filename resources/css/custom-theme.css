@@ -1,0 +1,440 @@
+/* ===========================================
+   TEMA PORVENIR PRODUCE - PALETA DE COLORES
+   =========================================== */
+
+:root {
+    --color-primary: #004a99;
+    --color-secondary: #f4f7f6;
+    --color-accent: #d4af37;
+    --color-text: #333333;
+    --color-light-bg: #f8fafb;
+    --color-border: #e0e4e7;
+}
+
+/* ===========================================
+   ESTILOS GLOBALES
+   =========================================== */
+
+* {
+    transition: all 0.3s ease;
+}
+
+body {
+    background-color: var(--color-secondary);
+    color: var(--color-text);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* ===========================================
+   BOTONES PERSONALIZADOS
+   =========================================== */
+
+.btn-primary {
+    background-color: var(--color-primary) !important;
+    border-color: var(--color-primary) !important;
+    color: white !important;
+    font-weight: 600;
+    border-radius: 8px;
+    padding: 0.6rem 1.5rem;
+    box-shadow: 0 2px 8px rgba(0, 74, 153, 0.15);
+}
+
+.btn-primary:hover {
+    background-color: #003370 !important;
+    box-shadow: 0 4px 12px rgba(0, 74, 153, 0.3);
+    transform: translateY(-2px);
+}
+
+.btn-success {
+    background-color: #10b981 !important;
+    border-color: #10b981 !important;
+    font-weight: 600;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(16, 185, 129, 0.15);
+}
+
+.btn-success:hover {
+    background-color: #059669 !important;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+    transform: translateY(-2px);
+}
+
+.btn-warning {
+    background-color: var(--color-accent) !important;
+    border-color: var(--color-accent) !important;
+    color: var(--color-primary) !important;
+    font-weight: 600;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(212, 175, 55, 0.15);
+}
+
+.btn-warning:hover {
+    background-color: #c9a125 !important;
+    box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
+    transform: translateY(-2px);
+}
+
+.btn-danger {
+    background-color: #ef4444 !important;
+    border-color: #ef4444 !important;
+    font-weight: 600;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(239, 68, 68, 0.15);
+}
+
+.btn-danger:hover {
+    background-color: #dc2626 !important;
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    background-color: #6b7280 !important;
+    border-color: #6b7280 !important;
+    font-weight: 600;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(107, 114, 128, 0.15);
+}
+
+.btn-secondary:hover {
+    background-color: #4b5563 !important;
+    box-shadow: 0 4px 12px rgba(107, 114, 128, 0.3);
+    transform: translateY(-2px);
+}
+
+/* ===========================================
+   TARJETAS (CARDS)
+   =========================================== */
+
+.card {
+    border: none;
+    border-radius: 12px;
+    background: white;
+    box-shadow: 0 4px 12px rgba(0, 74, 153, 0.08) !important;
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    box-shadow: 0 8px 24px rgba(0, 74, 153, 0.15) !important;
+}
+
+.card-header {
+    background: linear-gradient(135deg, var(--color-primary) 0%, #003370 100%);
+    color: white;
+    border-radius: 12px 12px 0 0 !important;
+    border: none;
+    padding: 1.5rem;
+}
+
+.card-title {
+    color: var(--color-primary);
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+/* ===========================================
+   TABLAS
+   =========================================== */
+
+.table {
+    background-color: white;
+}
+
+.table thead {
+    background: linear-gradient(135deg, var(--color-primary) 0%, #003370 100%);
+    color: white;
+}
+
+.table thead th {
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+    border: none;
+    padding: 1rem;
+}
+
+.table tbody tr {
+    border-bottom: 1px solid var(--color-border);
+    transition: background-color 0.2s ease;
+}
+
+.table tbody tr:hover {
+    background-color: var(--color-secondary);
+}
+
+.table tbody td {
+    padding: 0.9rem;
+    vertical-align: middle;
+    color: var(--color-text);
+}
+
+/* ===========================================
+   BADGES Y ETIQUETAS
+   =========================================== */
+
+.badge {
+    padding: 0.5rem 0.85rem;
+    font-weight: 600;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    letter-spacing: 0.3px;
+}
+
+.badge-success {
+    background-color: #d1fae5 !important;
+    color: #065f46 !important;
+}
+
+.badge-warning {
+    background-color: #fef3c7 !important;
+    color: #92400e !important;
+}
+
+.badge-danger {
+    background-color: #fee2e2 !important;
+    color: #991b1b !important;
+}
+
+.badge-secondary {
+    background-color: #e5e7eb !important;
+    color: #374151 !important;
+}
+
+/* ===========================================
+   FORMULARIOS
+   =========================================== */
+
+.form-control,
+.form-select {
+    border: 2px solid var(--color-border);
+    border-radius: 8px;
+    padding: 0.65rem 0.9rem;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--color-primary) !important;
+    box-shadow: 0 0 0 0.2rem rgba(0, 74, 153, 0.15) !important;
+    background-color: white;
+}
+
+.form-label {
+    font-weight: 600;
+    color: var(--color-primary);
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+}
+
+/* ===========================================
+   ENCABEZADOS
+   =========================================== */
+
+h1, h2, h3, h4, h5, h6 {
+    color: var(--color-primary);
+    font-weight: 700;
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    position: relative;
+    padding-bottom: 1rem;
+}
+
+h1::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 60px;
+    height: 4px;
+    background: linear-gradient(90deg, var(--color-accent), var(--color-primary));
+    border-radius: 2px;
+}
+
+h2 {
+    font-size: 1.75rem;
+    margin-bottom: 1rem;
+}
+
+/* ===========================================
+   NAVEGACIÓN Y LAYOUTS
+   =========================================== */
+
+.navbar {
+    background: linear-gradient(135deg, var(--color-primary) 0%, #003370 100%);
+    box-shadow: 0 4px 12px rgba(0, 74, 153, 0.15);
+    padding: 1rem 0;
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-accent) !important;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.nav-link {
+    color: rgba(255, 255, 255, 0.9) !important;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    margin: 0 0.5rem;
+}
+
+.nav-link:hover {
+    color: var(--color-accent) !important;
+    transform: translateY(-2px);
+}
+
+/* ===========================================
+   ALERTAS
+   =========================================== */
+
+.alert {
+    border: none;
+    border-radius: 10px;
+    padding: 1.2rem 1.5rem;
+    font-weight: 500;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.alert-success {
+    background-color: #d1fae5;
+    color: #065f46;
+    border-left: 5px solid #10b981;
+}
+
+.alert-danger {
+    background-color: #fee2e2;
+    color: #991b1b;
+    border-left: 5px solid #ef4444;
+}
+
+.alert-warning {
+    background-color: #fef3c7;
+    color: #92400e;
+    border-left: 5px solid #f59e0b;
+}
+
+.alert-info {
+    background-color: #dbeafe;
+    color: #1e40af;
+    border-left: 5px solid #3b82f6;
+}
+
+/* ===========================================
+   INPUTS Y CONTROLES
+   =========================================== */
+
+.input-group > .form-control {
+    border-right: none;
+}
+
+.input-group > .input-group-text {
+    background-color: var(--color-secondary);
+    border: 2px solid var(--color-border);
+    border-left: none;
+    color: var(--color-primary);
+    font-weight: 600;
+}
+
+/* ===========================================
+   EFECTOS Y ANIMACIONES
+   =========================================== */
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.animate-slide-left {
+    animation: slideInLeft 0.5s ease-out;
+}
+
+.animate-slide-right {
+    animation: slideInRight 0.5s ease-out;
+}
+
+.animate-fade-in {
+    animation: fadeIn 0.5s ease-out;
+}
+
+/* ===========================================
+   RESPONSIVE Y MOBILE
+   =========================================== */
+
+@media (max-width: 768px) {
+    h1 {
+        font-size: 1.75rem;
+    }
+
+    h2 {
+        font-size: 1.25rem;
+    }
+
+    .card {
+        margin-bottom: 1rem;
+    }
+
+    .btn {
+        font-size: 0.9rem;
+        padding: 0.5rem 1rem !important;
+    }
+}
+
+/* ===========================================
+   UTILIDADES
+   =========================================== */
+
+.text-primary-dark {
+    color: var(--color-primary) !important;
+}
+
+.bg-primary-light {
+    background-color: var(--color-secondary) !important;
+}
+
+.border-primary {
+    border-color: var(--color-primary) !important;
+}
+
+.shadow-primary {
+    box-shadow: 0 4px 12px rgba(0, 74, 153, 0.15) !important;
+}
+
+.divider {
+    height: 3px;
+    background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+    border-radius: 2px;
+    margin: 1.5rem 0;
+}
