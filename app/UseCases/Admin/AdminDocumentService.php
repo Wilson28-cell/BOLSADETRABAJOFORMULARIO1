@@ -252,11 +252,7 @@ class AdminDocumentService
                     DB::table('publicaciones_trabajo')->insert($publicacionData);
                 }
 
-                if (Schema::hasColumn('empresas_bolsadetrabajo_rechazadas', 'veces_restaurado')) {
-                    DB::table('empresas_bolsadetrabajo_rechazadas')
-                        ->where('id_rechazado', $id)
-                        ->update(['veces_restaurado' => DB::raw('IFNULL(veces_restaurado, 0) + 1')]);
-                }
+                DB::table('empresas_bolsadetrabajo_rechazadas')->where('id_rechazado', $id)->delete();
             });
         }
     }

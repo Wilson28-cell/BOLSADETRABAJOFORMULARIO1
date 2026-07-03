@@ -28,6 +28,11 @@ class ServicioDashboardService
         $servicesCreatedDuringPeriod = $this->getServicesCreatedDuringPeriod($filters);
         $expiringServices = $this->getExpiringServicesCount($filters, $today);
 
+        $topServicesByViews = $this->getTopServices($filters, ['visualizaciones', 'visitas'], 10);
+        $companiesByViews = $this->getCompaniesByViews($filters, 10);
+        $topServiceByViews = $topServicesByViews[0] ?? null;
+        $topCompanyByViews = $companiesByViews[0] ?? null;
+
         $charts = [
             'servicesByMonth' => $this->getMonthlyServices($filters),
             'viewsByMonth' => $this->getMonthlyMetric($filters, ['visualizaciones', 'visitas']),
@@ -36,6 +41,9 @@ class ServicioDashboardService
             'stateDistribution' => $this->getStateDistribution($filters, $today),
             'topCompanies' => $this->getTopCompanies($filters),
             'topCategories' => $this->getTopCategories($filters),
+            'topServicesByViewsChart' => $topServicesByViews,
+            'viewsByCategoryChart' => $this->getViewsByCategory($filters),
+            'companiesByViews' => $companiesByViews,
         ];
 
         return [
@@ -54,9 +62,14 @@ class ServicioDashboardService
                 'approvedServices' => $approvedServices,
                 'rejectedServices' => $rejectedServices,
                 'deletedServices' => $deletedServices,
+                'serviceMostViewedName' => $topServiceByViews['nombre_servicio'] ?? 'N/A',
+                'serviceMostViewedCompany' => $topServiceByViews['nombre_empresa'] ?? 'N/A',
+                'serviceMostViewedValue' => $topServiceByViews['metric'] ?? 0,
+                'topCompanyByViewsName' => $topCompanyByViews['nombre_empresa'] ?? 'N/A',
+                'topCompanyByViewsValue' => $topCompanyByViews['total'] ?? 0,
             ],
             'charts' => $charts,
-            'topServicesByViews' => $this->getTopServices($filters, ['visualizaciones', 'visitas'], 5),
+            'topServicesByViews' => $topServicesByViews,
             'topServicesByClicks' => $this->getTopServices($filters, ['clics', 'clicks'], 5),
             'topCompaniesRanking' => $charts['topCompanies'],
             'topCategoriesRanking' => $charts['topCategories'],
@@ -95,6 +108,11 @@ class ServicioDashboardService
             'totalContacts' => 0,
             'createdDuringPeriod' => 0,
             'expiringServices' => 0,
+            'serviceMostViewedName' => 'N/A',
+            'serviceMostViewedCompany' => 'N/A',
+            'serviceMostViewedValue' => 0,
+            'topCompanyByViewsName' => 'N/A',
+            'topCompanyByViewsValue' => 0,
         ], $data['summary'] ?? []);
 
         $data['charts'] = array_replace([
@@ -388,6 +406,62 @@ class ServicioDashboardService
             ->toArray();
     }
 
+    private function getViewsByCategory(array $filters): array
+    {
+        $column = null;
+        foreach (['visualizaciones', 'visitas'] as $col) {
+            if (Schema::hasColumn('servicios_publicos', $col)) {
+                $column = $col;
+                break;
+            }
+        }
+
+        if (!$column) {
+            return [];
+        }
+
+        return $this->baseQuery($filters)
+            ->where('estado', 'Publicado')
+            ->whereNotNull('categoria')
+            ->select('categoria', DB::raw("SUM($column) as total"))
+            ->groupBy('categoria')
+            ->orderByDesc('total')
+            ->get()
+            ->map(fn ($item) => [
+                'categoria' => $item->categoria,
+                'total' => $item->total,
+            ])
+            ->toArray();
+    }
+
+    private function getCompaniesByViews(array $filters, int $limit = 10): array
+    {
+        $column = null;
+        foreach (['visualizaciones', 'visitas'] as $col) {
+            if (Schema::hasColumn('servicios_publicos', $col)) {
+                $column = $col;
+                break;
+            }
+        }
+
+        if (!$column) {
+            return [];
+        }
+
+        return $this->baseQuery($filters)
+            ->where('estado', 'Publicado')
+            ->select('nombre_empresa', DB::raw("SUM($column) as total"))
+            ->groupBy('nombre_empresa')
+            ->orderByDesc('total')
+            ->limit($limit)
+            ->get()
+            ->map(fn ($item) => [
+                'nombre_empresa' => $item->nombre_empresa,
+                'total' => $item->total,
+            ])
+            ->toArray();
+    }
+
     private function getTopServices(array $filters, array $columnOptions, int $limit): array
     {
         $column = null;
@@ -424,7 +498,7 @@ class ServicioDashboardService
             ->where('estado', 'Publicado')
             ->whereDate('fecha_fin', '<=', $expiringDate)
             ->whereDate('fecha_fin', '>=', now()->toDateString())
-            ->select('nombre_servicio', 'nombre_empresa', 'fecha_fin')
+            ->select('nombre_servicio', 'nombre_empresa', 'categoria', 'fecha_fin')
             ->orderBy('fecha_fin')
             ->limit(5)
             ->get()

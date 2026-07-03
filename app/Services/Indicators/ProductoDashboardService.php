@@ -14,57 +14,32 @@ class ProductoDashboardService
         $today = now()->toDateString();
 
         $publishedProducts = $this->getPublishedCount($filters);
-        $activePublishedProducts = $this->getActivePublishedCount($filters, $today);
-        $expiredPublishedProducts = $this->getExpiredPublishedCount($filters, $today);
-        $pendingProducts = $this->getPendingProductsCount($filters);
-        $approvedProducts = $this->getApprovedProductsCount($filters);
-        $rejectedProducts = $this->getRejectedProductsCount($filters);
-        $deletedProducts = $this->getDeletedProductsCount($filters);
-        $featuredProducts = $this->getFeaturedProductsCount($filters);
-        $companiesCount = $this->getCompaniesCount($filters);
-        $categoriesWithPublications = $this->getCategoriesWithPublicationsCount($filters);
         $totalViews = $this->getMetricSum($filters, ['visualizaciones', 'visitas']);
-        $totalClicks = $this->getMetricSum($filters, ['clics', 'clicks']);
-        $totalContacts = $this->getMetricSum($filters, ['contactos', 'contacto']);
-        $productsCreatedDuringPeriod = $this->getProductsCreatedDuringPeriod($filters);
-        $expiringProducts = $this->getExpiringProductsCount($filters, $today);
+        $topProductsByViewsChart = $this->getTopProductsByMetricChart($filters, ['visualizaciones', 'visitas'], 10);
+        $topCompanyByViews = $this->getTopCompanyByViews($filters, ['visualizaciones', 'visitas']);
+        $viewsByCategory = $this->getViewsByCategory($filters, ['visualizaciones', 'visitas']);
+        $companiesByViews = $this->getCompaniesByViews($filters, ['visualizaciones', 'visitas']);
 
         $charts = [
-            'productsByMonth' => $this->getMonthlyProducts($filters),
             'viewsByMonth' => $this->getMonthlyMetric($filters, ['visualizaciones', 'visitas']),
-            'publicationsByCategory' => $this->getPublicationsByCategory($filters),
-            'publicationsByCompany' => $this->getPublicationsByCompany($filters),
-            'stateDistribution' => $this->getStateDistribution($filters, $today),
-            'topCompanies' => $this->getTopCompanies($filters),
-            'topCategories' => $this->getTopCategories($filters),
+            'topProductsByViewsChart' => $topProductsByViewsChart,
+            'viewsByCategory' => $viewsByCategory,
+            'companiesByViews' => $companiesByViews,
         ];
 
         return [
             'summary' => [
                 'totalProducts' => $publishedProducts,
-                'activeProducts' => $activePublishedProducts,
-                'pendingProducts' => $pendingProducts,
-                'expiredProducts' => $expiredPublishedProducts,
-                'featuredProducts' => $featuredProducts,
-                'totalCompanies' => $companiesCount,
-                'categoriesWithPublications' => $categoriesWithPublications,
                 'totalViews' => $totalViews,
-                'totalClicks' => $totalClicks,
-                'totalContacts' => $totalContacts,
-                'createdDuringPeriod' => $productsCreatedDuringPeriod,
-                'expiringProducts' => $expiringProducts,
-                'approvedProducts' => $approvedProducts,
-                'rejectedProducts' => $rejectedProducts,
-                'deletedProducts' => $deletedProducts,
+                'productMostViewedName' => $topProductsByViewsChart[0]['nombre_producto'] ?? 'N/A',
+                'productMostViewedCompany' => $topProductsByViewsChart[0]['nombre_empresa'] ?? 'N/A',
+                'productMostViewedValue' => $topProductsByViewsChart[0]['metric'] ?? 0,
+                'topCompanyByViewsName' => $topCompanyByViews['nombre_empresa'] ?? 'N/A',
+                'topCompanyByViewsValue' => $topCompanyByViews['metric'] ?? 0,
             ],
             'charts' => $charts,
-            'topProductsByViews' => $this->getTopProducts($filters, ['visualizaciones', 'visitas'], 5),
-            'topProductsByClicks' => $this->getTopProducts($filters, ['clics', 'clicks'], 5),
-            'topCompaniesRanking' => $charts['topCompanies'],
-            'topCategoriesRanking' => $charts['topCategories'],
-            'expiringPublications' => $this->getExpiringPublications($filters, 6),
+            'topProductsByViews' => $topProductsByViewsChart,
             'categories' => $this->getAvailableCategories(),
-            'states' => $this->getAvailableStates(),
             'filters' => $filters,
         ];
     }
@@ -98,16 +73,18 @@ class ProductoDashboardService
             'totalContacts' => 0,
             'createdDuringPeriod' => 0,
             'expiringProducts' => 0,
+            'productMostViewedName' => 'N/A',
+            'productMostViewedCompany' => 'N/A',
+            'productMostViewedValue' => 0,
+            'topCompanyByViewsName' => 'N/A',
+            'topCompanyByViewsValue' => 0,
         ], $data['summary'] ?? []);
 
         $data['charts'] = array_replace([
-            'productsByMonth' => [],
             'viewsByMonth' => [],
-            'publicationsByCategory' => [],
-            'publicationsByCompany' => [],
-            'stateDistribution' => [],
-            'topCompanies' => [],
-            'topCategories' => [],
+            'topProductsByViewsChart' => [],
+            'viewsByCategory' => [],
+            'companiesByViews' => [],
         ], $data['charts'] ?? []);
 
         $data['topProductsByViews'] = $data['topProductsByViews'] ?? [];
@@ -571,40 +548,104 @@ class ProductoDashboardService
             return [];
         }
 
+        return $this->getTopProductsByMetricChart($filters, $candidates, $limit);
+    }
+
+    private function getTopProductsByMetricChart(array $filters, array $candidates, int $limit = 10): array
+    {
+        if (! Schema::hasTable('productos_publicos')) {
+            return [];
+        }
+
         $column = $this->getMetricColumn($candidates);
         $baseQuery = DB::table('productos_publicos')
             ->where('estado', 'Publicado')
             ->when(! empty($filters['empresa']), fn ($query) => $query->where('nombre_empresa', 'LIKE', '%' . $filters['empresa'] . '%'))
             ->when(! empty($filters['categoria']), fn ($query) => $query->where('categoria', $filters['categoria']))
-            ->when(! empty($filters['estado']) && $filters['estado'] !== 'todos', fn ($query) => $query->where('estado', $filters['estado']))
             ->when(! empty($filters['desde']), fn ($query) => $query->whereDate('fecha_publicacion', '>=', $filters['desde']))
             ->when(! empty($filters['hasta']), fn ($query) => $query->whereDate('fecha_publicacion', '<=', $filters['hasta']));
 
-        if ($column !== null) {
-            $rows = $baseQuery
-                ->selectRaw("id_publico_producto, nombre_producto, nombre_empresa, {$column} as metric")
-                ->orderByDesc('metric')
-                ->orderByDesc('fecha_publicacion')
-                ->limit($limit)
-                ->get();
-
-            return $rows->map(fn ($row) => [
-                'nombre_producto' => $row->nombre_producto,
-                'nombre_empresa' => $row->nombre_empresa,
-                'metric' => (int) $row->metric,
-            ])->all();
+        if ($column === null) {
+            return [];
         }
 
         $rows = $baseQuery
-            ->orderByDesc('fecha_fin')
+            ->selectRaw("id_publico_producto, nombre_producto, nombre_empresa, SUM({$column}) as metric")
+            ->groupBy('id_publico_producto', 'nombre_producto', 'nombre_empresa')
+            ->orderByDesc('metric')
+            ->orderByDesc('fecha_publicacion')
             ->limit($limit)
             ->get();
 
         return $rows->map(fn ($row) => [
             'nombre_producto' => $row->nombre_producto,
             'nombre_empresa' => $row->nombre_empresa,
-            'metric' => 0,
+            'metric' => (int) $row->metric,
         ])->all();
+    }
+
+    private function getViewsByCategory(array $filters, array $candidates): array
+    {
+        if (! Schema::hasTable('productos_publicos')) {
+            return [];
+        }
+
+        $column = $this->getMetricColumn($candidates);
+        if ($column === null) {
+            return [];
+        }
+
+        $rows = DB::table('productos_publicos')
+            ->where('estado', 'Publicado')
+            ->when(! empty($filters['empresa']), fn ($query) => $query->where('nombre_empresa', 'LIKE', '%' . $filters['empresa'] . '%'))
+            ->when(! empty($filters['categoria']), fn ($query) => $query->where('categoria', $filters['categoria']))
+            ->when(! empty($filters['desde']), fn ($query) => $query->whereDate('fecha_publicacion', '>=', $filters['desde']))
+            ->when(! empty($filters['hasta']), fn ($query) => $query->whereDate('fecha_publicacion', '<=', $filters['hasta']))
+            ->selectRaw('categoria, SUM(' . $column . ') as total')
+            ->groupBy('categoria')
+            ->orderByDesc('total')
+            ->limit(10)
+            ->get();
+
+        return $rows->map(fn ($row) => [
+            'categoria' => $row->categoria ?: 'Sin categoría',
+            'total' => (int) $row->total,
+        ])->all();
+    }
+
+    private function getCompaniesByViews(array $filters, array $candidates, int $limit = 10): array
+    {
+        if (! Schema::hasTable('productos_publicos')) {
+            return [];
+        }
+
+        $column = $this->getMetricColumn($candidates);
+        if ($column === null) {
+            return [];
+        }
+
+        $rows = DB::table('productos_publicos')
+            ->where('estado', 'Publicado')
+            ->when(! empty($filters['empresa']), fn ($query) => $query->where('nombre_empresa', 'LIKE', '%' . $filters['empresa'] . '%'))
+            ->when(! empty($filters['categoria']), fn ($query) => $query->where('categoria', $filters['categoria']))
+            ->when(! empty($filters['desde']), fn ($query) => $query->whereDate('fecha_publicacion', '>=', $filters['desde']))
+            ->when(! empty($filters['hasta']), fn ($query) => $query->whereDate('fecha_publicacion', '<=', $filters['hasta']))
+            ->selectRaw('nombre_empresa, SUM(' . $column . ') as total')
+            ->groupBy('nombre_empresa')
+            ->orderByDesc('total')
+            ->limit($limit)
+            ->get();
+
+        return $rows->map(fn ($row) => [
+            'nombre_empresa' => $row->nombre_empresa ?: 'Sin empresa',
+            'total' => (int) $row->total,
+        ])->all();
+    }
+
+    private function getTopCompanyByViews(array $filters, array $candidates): array
+    {
+        $companies = $this->getCompaniesByViews($filters, $candidates, 1);
+        return $companies[0] ?? ['nombre_empresa' => 'N/A', 'metric' => 0];
     }
 
     private function getExpiringPublications(array $filters, int $limit = 6): array

@@ -43,6 +43,9 @@ class BolsaDashboardService
 
         $offersByMonth = $this->getMonthlyOffers($filters);
         $applicationsByMonth = $this->getMonthlyApplications($filters);
+        $topOffersByApplications = $this->getTopOffersByApplications($filters);
+        $applicationsByCategory = $this->getApplicationsByCategory($filters);
+        $companiesByApplicants = $this->getCompaniesByApplicants($filters);
         $stateDistribution = $this->getStateDistribution($filters);
         $approvalDistribution = $this->getApprovalDistribution($filters);
         $topCompanies = $this->getTopCompanies($filters);
@@ -65,6 +68,9 @@ class BolsaDashboardService
             'charts' => [
                 'offersByMonth' => $offersByMonth,
                 'applicationsByMonth' => $applicationsByMonth,
+                'topOffersByApplications' => $topOffersByApplications,
+                'applicationsByCategory' => $applicationsByCategory,
+                'companiesByApplicants' => $companiesByApplicants,
                 'stateDistribution' => $stateDistribution,
                 'approvalDistribution' => $approvalDistribution,
                 'topCompanies' => $topCompanies,
@@ -143,6 +149,9 @@ class BolsaDashboardService
         $data['charts'] = array_replace([ 
             'offersByMonth' => [],
             'applicationsByMonth' => [],
+            'topOffersByApplications' => [],
+            'applicationsByCategory' => [],
+            'companiesByApplicants' => [],
             'stateDistribution' => [],
             'approvalDistribution' => [],
             'topCompanies' => [],
@@ -302,6 +311,50 @@ class BolsaDashboardService
         return $this->baseOfferQuery($filters)
             ->selectRaw('nombre_empresa, COUNT(*) as total')
             ->groupBy('nombre_empresa')
+            ->orderByDesc('total')
+            ->limit(10)
+            ->get()
+            ->map(fn ($row) => [
+                'nombre_empresa' => $row->nombre_empresa ?: 'Sin empresa',
+                'total' => (int) $row->total,
+            ])->all();
+    }
+
+    private function getTopOffersByApplications(array $filters): array
+    {
+        return $this->basePostulacionQuery($filters)
+            ->select('p.id_publica', 'p.titulo_puesto', 'p.nombre_empresa', DB::raw('COUNT(*) as total'))
+            ->groupBy('p.id_publica', 'p.titulo_puesto', 'p.nombre_empresa')
+            ->orderByDesc('total')
+            ->limit(10)
+            ->get()
+            ->map(fn ($row) => [
+                'titulo_puesto' => $row->titulo_puesto ?: 'Sin título',
+                'nombre_empresa' => $row->nombre_empresa ?: 'Sin empresa',
+                'total' => (int) $row->total,
+            ])->all();
+    }
+
+    private function getApplicationsByCategory(array $filters): array
+    {
+        return $this->basePostulacionQuery($filters)
+            ->select('p.categoria', DB::raw('COUNT(*) as total'))
+            ->whereNotNull('p.categoria')
+            ->where('p.categoria', '<>', '')
+            ->groupBy('p.categoria')
+            ->orderByDesc('total')
+            ->get()
+            ->map(fn ($row) => [
+                'categoria' => $row->categoria ?: 'Sin categoría',
+                'total' => (int) $row->total,
+            ])->all();
+    }
+
+    private function getCompaniesByApplicants(array $filters): array
+    {
+        return $this->basePostulacionQuery($filters)
+            ->select('p.nombre_empresa', DB::raw('COUNT(*) as total'))
+            ->groupBy('p.nombre_empresa')
             ->orderByDesc('total')
             ->limit(10)
             ->get()

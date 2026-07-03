@@ -166,31 +166,30 @@
             });
         }
 
-        const productsByMonth = data.charts.productsByMonth || [];
-        const offersByMonth = data.charts.offersByMonth || [];
-        const viewsByMonth = data.charts.viewsByMonth || [];
         const applicationsByMonth = data.charts.applicationsByMonth || [];
-        const stateDistribution = data.charts.stateDistribution || [];
-        const approvalDistribution = data.charts.approvalDistribution || [];
-        const categories = data.charts.publicationsByCategory || [];
-        const companies = data.charts.publicationsByCompany || [];
-        const topCompanies = data.charts.topCompanies || [];
-        const topCategories = data.charts.topCategories || [];
+        const topOffersByApplications = data.charts.topOffersByApplications || [];
+        const applicationsByCategory = data.charts.applicationsByCategory || [];
+        const companiesByApplicants = data.charts.companiesByApplicants || [];
+        const viewsByMonth = data.charts.viewsByMonth || [];
+        const topProductsByViewsChart = data.charts.topProductsByViewsChart || [];
+        const topServicesByViewsChart = data.charts.topServicesByViewsChart || [];
+        const viewsByCategory = data.charts.viewsByCategory || data.charts.viewsByCategoryChart || [];
+        const companiesByViews = data.charts.companiesByViews || [];
 
-        createBarChart(
-            'productsByMonthChart',
-            productsByMonth.map(item => item.label),
-            productsByMonth.map(item => item.total),
-            'Publicaciones',
-            '#3b82f6'
+        createLineChart(
+            'applicationsByMonthChart',
+            applicationsByMonth.map(item => item.label),
+            applicationsByMonth.map(item => item.total),
+            'Postulaciones',
+            'rgb(37,99,235)'
         );
 
         createBarChart(
-            'offersByMonthChart',
-            offersByMonth.map(item => item.label),
-            offersByMonth.map(item => item.total),
-            'Ofertas',
-            '#3b82f6'
+            'topOffersByApplicationsChart',
+            topOffersByApplications.map(item => `${item.titulo_puesto} (${item.nombre_empresa})`),
+            topOffersByApplications.map(item => item.total),
+            'Postulaciones por oferta',
+            'rgba(59,130,246,0.9)'
         );
 
         createLineChart(
@@ -198,63 +197,44 @@
             viewsByMonth.map(item => item.label),
             viewsByMonth.map(item => item.total),
             'Visualizaciones',
-            'rgb(79,70,229)'
-        );
-
-        createLineChart(
-            'applicationsByMonthChart',
-            applicationsByMonth.map(item => item.label),
-            applicationsByMonth.map(item => item.total),
-            'Postulaciones',
-            'rgb(79,70,229)'
-        );
-
-        createDoughnutChart(
-            'stateDistributionChart',
-            stateDistribution.map(item => item.label),
-            stateDistribution.map(item => item.total),
-            stateDistribution.map(item => item.color || '#3b82f6')
-        );
-
-        createDoughnutChart(
-            'approvalDistributionChart',
-            approvalDistribution.map(item => item.label),
-            approvalDistribution.map(item => item.total),
-            approvalDistribution.map(item => item.color || ['#198754', '#dc3545'])
+            'rgb(32,100,244)'
         );
 
         createBarChart(
-            'categoryDistributionChart',
-            categories.map(item => item.categoria),
-            categories.map(item => item.total),
-            'Categorías',
-            '#8b5cf6'
-        );
-
-        createBarChart(
-            'companyRankingChart',
-            companies.map(item => item.nombre_empresa),
-            companies.map(item => item.total),
-            'Empresas',
-            'rgba(16,185,129,0.9)',
+            'topProductsByViewsChart',
+            topProductsByViewsChart.map(item => `${item.nombre_producto || item.nombre_servicio} (${item.nombre_empresa})`),
+            (topProductsByViewsChart.length ? topProductsByViewsChart : topServicesByViewsChart).map(item => item.metric),
+            'Visualizaciones',
+            'rgba(37,99,235,0.9)',
             true
         );
 
         createBarChart(
-            'topCompaniesChart',
-            topCompanies.map(item => item.nombre_empresa),
-            topCompanies.map(item => item.total),
-            'Empresas top',
-            'rgba(16,185,129,0.9)',
+            'topServicesByViewsChart',
+            (topServicesByViewsChart.length ? topServicesByViewsChart : topProductsByViewsChart).map(item => `${item.nombre_servicio || item.nombre_producto} (${item.nombre_empresa})`),
+            (topServicesByViewsChart.length ? topServicesByViewsChart : topProductsByViewsChart).map(item => item.metric),
+            'Visualizaciones',
+            'rgba(37,99,235,0.9)',
             true
         );
 
+        createDoughnutChart(
+            'viewsByCategoryChart',
+            viewsByCategory.map(item => item.categoria),
+            viewsByCategory.map(item => item.total),
+            viewsByCategory.map((item, index) => {
+                const palette = ['#2563eb', '#3b82f6', '#60a5fa', '#818cf8', '#93c5fd', '#7dd3fc', '#38bdf8', '#38bdf8', '#0ea5e9', '#0ea5e9'];
+                return palette[index % palette.length];
+            })
+        );
+
         createBarChart(
-            'topCategoriesChart',
-            topCategories.map(item => item.categoria),
-            topCategories.map(item => item.total),
-            'Categorías top',
-            '#f97316'
+            'companiesByViewsChart',
+            companiesByViews.map(item => item.nombre_empresa),
+            companiesByViews.map(item => item.total),
+            'Visualizaciones',
+            'rgba(14,165,233,0.92)',
+            true
         );
     }
 
