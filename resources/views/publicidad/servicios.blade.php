@@ -49,12 +49,6 @@
                             <span class="contacto-badge">☎️ {{ $servicio->telefono_contacto ?? 'No disponible' }}</span>
                         </div>
 
-                        @if(!empty($servicio->redes_sociales))
-                            <div class="mt-2">
-                                @include('publicidad.partials.social-links', ['texto' => $servicio->redes_sociales])
-                            </div>
-                        @endif
-
                         @if(!empty($servicio->requisitos))
                             <div class="requisitos-note">
                                 <strong>ℹ️ Requisitos:</strong> {{ Str::limit($servicio->requisitos, 80) }}

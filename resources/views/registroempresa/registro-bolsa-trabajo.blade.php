@@ -81,7 +81,7 @@
                             </div>
 
                             <div class="form-group-custom">
-                                <label class="form-label-custom">📄 Documento de Validación <span class="required-mark">*</span></label>
+                                <label class="form-label-custom">📄 Documentos requeridos (Ficha de SUNAT y SUNARP) <span class="required-mark">*</span></label>
                                 <input type="file" name="documento_validacion" class="form-control-custom" required>
                                 <div class="helper-text">Formato: PDF, JPG, PNG. Máx: 5MB</div>
                             </div>

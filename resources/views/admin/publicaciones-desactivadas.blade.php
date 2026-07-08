@@ -63,10 +63,6 @@
                                 <td><span class="badge bg-secondary">Desactivado</span></td>
                                 <td>
                                     <a href="{{ url('admin/publicaciones-desactivadas/'.($e->id_publicidad ?? $e->id)) }}" class="btn btn-sm btn-outline-primary">Ver</a>
-                                    <form action="{{ url('admin/publicaciones/restaurar/'.($e->id_publicidad ?? $e->id_aprobado ?? $e->id)) }}" method="POST" class="confirm-password-action" data-confirm-message="Restaurar esta publicación?" style="display:inline-block;">
-                                        @csrf
-                                        <button class="btn btn-sm btn-success">Restaurar</button>
-                                    </form>
                                 </td>
                             </tr>
                         @endforeach
