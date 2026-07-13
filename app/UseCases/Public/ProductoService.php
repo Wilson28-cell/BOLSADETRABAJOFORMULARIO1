@@ -131,13 +131,30 @@ class ProductoService
         }
     }
 
-    public function listPublicProducts(): Collection
+    public function listPublicProducts(array $filters = []): Collection
     {
-        return DB::table('productos_publicos')
+        $query = DB::table('productos_publicos')
             ->where('estado', 'Publicado')
-            ->whereDate('fecha_fin', '>=', now()->format('Y-m-d'))
-            ->orderByDesc('fecha_publicacion')
-            ->get();
+            ->whereDate('fecha_fin', '>=', now()->format('Y-m-d'));
+
+        if (!empty($filters['q'])) {
+            $q = trim($filters['q']);
+            $query->where(function ($sub) use ($q) {
+                $sub->where('nombre_producto', 'like', "%{$q}%")
+                    ->orWhere('descripcion', 'like', "%{$q}%")
+                    ->orWhere('nombre_empresa', 'like', "%{$q}%");
+            });
+        }
+
+        if (!empty($filters['categoria'])) {
+            $query->where('categoria', $filters['categoria']);
+        }
+
+        if (!empty($filters['ubicacion_ciudad'])) {
+            $query->where('ubicacion_ciudad', $filters['ubicacion_ciudad']);
+        }
+
+        return $query->orderByDesc('fecha_publicacion')->get();
     }
 
     public function getPublicProductById(int $id): ?object

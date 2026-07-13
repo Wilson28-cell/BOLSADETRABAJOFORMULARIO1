@@ -27,6 +27,39 @@
     <span class="section-label">Ofertas laborales activas</span>
 </div>
 
+<form method="GET" action="{{ url('/publicidad/bolsa-trabajo') }}" class="row g-2 mb-4 align-items-end">
+    <input type="hidden" name="estado" value="{{ $estadoSeleccionado }}">
+    <div class="col-md-4">
+        <label class="form-label">Buscar</label>
+        <input type="text" name="buscar" class="form-control" value="{{ request('buscar') }}" placeholder="Puesto, ubicación o palabra clave">
+    </div>
+    <div class="col-md-2">
+        <label class="form-label">Modalidad</label>
+        <select name="modalidad" class="form-select">
+            <option value="">Todas</option>
+            <option value="Presencial" {{ request('modalidad') === 'Presencial' ? 'selected' : '' }}>Presencial</option>
+            <option value="Remoto" {{ request('modalidad') === 'Remoto' ? 'selected' : '' }}>Remoto</option>
+            <option value="Híbrido" {{ request('modalidad') === 'Híbrido' ? 'selected' : '' }}>Híbrido</option>
+        </select>
+    </div>
+    <div class="col-md-2">
+        <label class="form-label">Categoría</label>
+        <select name="categoria" class="form-select">
+            <option value="">Todas</option>
+            @foreach($categorias as $categoria)
+                <option value="{{ $categoria }}" {{ request('categoria') === $categoria ? 'selected' : '' }}>{{ $categoria }}</option>
+            @endforeach
+        </select>
+    </div>
+    <div class="col-md-2">
+        <label class="form-label">Salario mínimo</label>
+        <input type="number" name="salario_min" class="form-control" min="0" step="0.01" value="{{ request('salario_min') }}" placeholder="S/">
+    </div>
+    <div class="col-md-2 d-grid">
+        <button type="submit" class="btn btn-primary">Filtrar</button>
+    </div>
+</form>
+
 @if($ofertas->isEmpty())
     <div class="empty-state">
         <div class="empty-state-icon">📭</div>

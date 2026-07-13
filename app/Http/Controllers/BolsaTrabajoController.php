@@ -44,14 +44,15 @@ class BolsaTrabajoController extends Controller
 
     public function publicidadBolsaTrabajo(Request $request)
     {
-        $filters = $request->only(['buscar', 'modalidad', 'categoria', 'estado']);
+        $filters = $request->only(['buscar', 'modalidad', 'categoria', 'salario_min', 'estado']);
         $filters['estado'] = in_array($filters['estado'] ?? null, ['publicadas', 'vencidas'], true)
             ? $filters['estado']
             : 'publicadas';
 
         $ofertas = $this->bolsaTrabajoService->listPublicJobs($filters);
+        $categorias = $this->bolsaTrabajoService->getPublicCategories();
 
-        return view('publicidad.bolsa-trabajo', compact('ofertas', 'filters'));
+        return view('publicidad.bolsa-trabajo', compact('ofertas', 'filters', 'categorias'));
     }
 
     public function detalle(int $id)

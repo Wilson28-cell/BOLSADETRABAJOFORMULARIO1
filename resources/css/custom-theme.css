@@ -6,6 +6,7 @@
     --color-primary: #004a99;
     --color-secondary: #f4f7f6;
     --color-accent: #d4af37;
+    --color-accent-soft: #e8f0f8;
     --color-text: #333333;
     --color-light-bg: #f8fafb;
     --color-border: #e0e4e7;
@@ -118,6 +119,57 @@ body {
     box-shadow: 0 8px 24px rgba(0, 74, 153, 0.15) !important;
 }
 
+.publicidad-page .card-producto {
+    background: linear-gradient(145deg, #ffffff 0%, var(--color-light-bg) 100%);
+    border: 1px solid rgba(0, 74, 153, 0.12);
+    box-shadow: 0 6px 16px rgba(0, 74, 153, 0.08) !important;
+}
+
+.publicidad-page .card-producto:hover {
+    box-shadow: 0 10px 24px rgba(0, 74, 153, 0.12) !important;
+    transform: translateY(-2px);
+}
+
+.publicidad-page .card-producto .card-header-img {
+    background: linear-gradient(135deg, var(--color-primary) 0%, #003370 100%);
+    padding: 0.75rem;
+}
+
+.publicidad-page .card-producto .card-header-img img {
+    border-radius: 10px;
+    object-fit: cover;
+    height: 200px;
+    width: 100%;
+}
+
+.publicidad-page .card-producto .titulo-producto {
+    color: var(--color-primary);
+    font-weight: 700;
+}
+
+.publicidad-page .card-producto .badge-custom.badge-categoria {
+    background: var(--color-accent-soft);
+    color: var(--color-primary);
+    border: 1px solid rgba(0, 74, 153, 0.16);
+}
+
+.publicidad-page .card-producto .btn-detalle {
+    background: linear-gradient(135deg, var(--color-primary) 0%, #003370 100%);
+    color: white;
+    border: none;
+    border-radius: 999px;
+    padding: 0.6rem 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.publicidad-page .card-producto .btn-detalle:hover {
+    background: linear-gradient(135deg, #003370 0%, var(--color-primary) 100%);
+    color: white;
+    transform: translateY(-1px);
+}
+
 .card-header {
     background: linear-gradient(135deg, var(--color-primary) 0%, #003370 100%);
     color: white;
@@ -204,6 +256,38 @@ body {
 /* ===========================================
    FORMULARIOS
    =========================================== */
+
+.filters-container {
+    background: linear-gradient(135deg, rgba(0, 74, 153, 0.05) 0%, rgba(212, 175, 55, 0.06) 100%);
+    border: 1px solid rgba(0, 74, 153, 0.12);
+    border-radius: 16px;
+    padding: 1rem 1.25rem;
+    box-shadow: 0 4px 14px rgba(0, 74, 153, 0.06);
+}
+
+.filters-container .form-control,
+.filters-container .form-select {
+    border-color: var(--color-border);
+    background-color: white;
+}
+
+.filters-container .form-control:focus,
+.filters-container .form-select:focus {
+    border-color: var(--color-primary) !important;
+    box-shadow: 0 0 0 0.2rem rgba(0, 74, 153, 0.14) !important;
+}
+
+.filters-container .btn-primary {
+    background: linear-gradient(135deg, var(--color-primary) 0%, #003370 100%) !important;
+    border-color: var(--color-accent) !important;
+    color: white !important;
+}
+
+.filters-container .btn-primary:hover {
+    background: linear-gradient(135deg, #003370 0%, var(--color-primary) 100%) !important;
+    border-color: #c9a125 !important;
+    transform: translateY(-1px);
+}
 
 .form-control,
 .form-select {

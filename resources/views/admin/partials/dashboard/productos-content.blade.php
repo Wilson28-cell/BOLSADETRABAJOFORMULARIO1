@@ -18,11 +18,11 @@
             </div>
             <div class="col-6 col-lg-2">
                 <label class="form-label">Desde</label>
-                <input type="date" name="desde" value="{{ $filters['desde'] ?? '' }}" class="form-control form-control-solid" />
+                <input type="date" name="desde" value="{{ !empty(data_get($filters, 'desde', '')) ? \Illuminate\Support\Carbon::parse(data_get($filters, 'desde', ''))->format('Y-m-d') : '' }}" class="form-control form-control-solid" autocomplete="off" />
             </div>
             <div class="col-6 col-lg-2">
                 <label class="form-label">Hasta</label>
-                <input type="date" name="hasta" value="{{ $filters['hasta'] ?? '' }}" class="form-control form-control-solid" />
+                <input type="date" name="hasta" value="{{ !empty(data_get($filters, 'hasta', '')) ? \Illuminate\Support\Carbon::parse(data_get($filters, 'hasta', ''))->format('Y-m-d') : '' }}" class="form-control form-control-solid" autocomplete="off" />
             </div>
             <div class="col-12 col-lg-1 text-lg-end">
                 <button type="submit" class="btn btn-primary w-100">Aplicar</button>

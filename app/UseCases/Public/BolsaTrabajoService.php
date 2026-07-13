@@ -59,7 +59,12 @@ class BolsaTrabajoService
         $query = DB::table('publicaciones_publicas');
 
         if (!empty($filters['buscar'])) {
-            $query->where('titulo_puesto', 'LIKE', '%' . $filters['buscar'] . '%');
+            $buscar = trim($filters['buscar']);
+            $query->where(function ($sub) use ($buscar) {
+                $sub->where('titulo_puesto', 'LIKE', '%' . $buscar . '%')
+                    ->orWhere('descripcion_puesto', 'LIKE', '%' . $buscar . '%')
+                    ->orWhere('ubicacion', 'LIKE', '%' . $buscar . '%');
+            });
         }
 
         if (!empty($filters['modalidad'])) {
@@ -68,6 +73,10 @@ class BolsaTrabajoService
 
         if (!empty($filters['categoria'])) {
             $query->where('categoria', $filters['categoria']);
+        }
+
+        if (!empty($filters['salario_min'])) {
+            $query->where('salario', '>=', (float) $filters['salario_min']);
         }
 
         $estado = $filters['estado'] ?? null;

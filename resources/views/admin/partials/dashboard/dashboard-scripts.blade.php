@@ -192,6 +192,22 @@
             'rgba(59,130,246,0.9)'
         );
 
+        createDoughnutChart(
+            'applicationsByCategoryChart',
+            applicationsByCategory.map(item => item.label || item.categoria),
+            applicationsByCategory.map(item => item.total),
+            applicationsByCategory.map((item, index) => item.color || ['#2563eb', '#3b82f6', '#60a5fa', '#818cf8', '#93c5fd'][index % 5])
+        );
+
+        createBarChart(
+            'companiesByApplicantsChart',
+            companiesByApplicants.map(item => item.nombre_empresa),
+            companiesByApplicants.map(item => item.total),
+            'Postulantes',
+            'rgba(16,185,129,0.92)',
+            true
+        );
+
         createLineChart(
             'viewsByMonthChart',
             viewsByMonth.map(item => item.label),
@@ -238,11 +254,50 @@
         );
     }
 
+    function parseDashboardDateValue(value) {
+        if (!value) return '';
+
+        const trimmed = String(value).trim();
+        if (!trimmed) return '';
+
+        const isoMatch = trimmed.match(/^\d{4}-\d{2}-\d{2}$/);
+        if (isoMatch) return trimmed;
+
+        const slashMatch = trimmed.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+        if (!slashMatch) return trimmed;
+
+        const [, day, month, year] = slashMatch;
+        return `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+    }
+
+    function syncDashboardDateInputs(root = document) {
+        root.querySelectorAll('input[name="desde"], input[name="hasta"]').forEach(function (input) {
+            input.setAttribute('autocomplete', 'off');
+            input.type = 'date';
+
+            if (input.value) {
+                input.value = parseDashboardDateValue(input.value);
+            }
+        });
+    }
+
+    function normalizeDashboardDateInputs(form) {
+        if (!form) return;
+
+        form.querySelectorAll('input[name="desde"], input[name="hasta"]').forEach(function (input) {
+            if (input.value) {
+                input.value = parseDashboardDateValue(input.value);
+            }
+        });
+    }
+
     document.addEventListener('DOMContentLoaded', function () {
         window.dashboardCharts = window.dashboardCharts || {};
 
         const dashboardContent = document.getElementById('dashboardContent');
         const dashboardUrl = dashboardContent?.dataset.dashboardUrl || '{{ url('admin/indicadores-bolsa') }}';
+
+        syncDashboardDateInputs(document);
 
         const initialStateElement = document.getElementById('dashboardStateData');
         if (initialStateElement) {
@@ -263,6 +318,7 @@
                 if (!response.ok) throw new Error('No se pudo cargar el dashboard');
                 const html = await response.text();
                 dashboardContent.innerHTML = html;
+                syncDashboardDateInputs(dashboardContent);
                 const jsonData = JSON.parse(document.getElementById('dashboardStateData').textContent);
                 renderDashboardCharts(jsonData);
             } catch (error) {
@@ -279,6 +335,7 @@
             }
 
             event.preventDefault();
+            normalizeDashboardDateInputs(filtersForm);
             const params = new URLSearchParams(new FormData(filtersForm));
             refreshDashboard('?' + params.toString());
         });

@@ -14,60 +14,50 @@
 <div class="section-heading text-center">
     <span class="section-label">Servicios disponibles</span>
 </div>
+<div class="filters-container mb-4">
+    <form id="servicios-filters" class="row g-2 align-items-center">
+        <div class="col-md-5">
+            <input type="search" name="q" class="form-control" placeholder="Buscar servicios, empresa o descripción" value="{{ request('q') }}">
+        </div>
+        <div class="col-md-3">
+            <input type="text" name="categoria" class="form-control" placeholder="Categoría" value="{{ request('categoria') }}">
+        </div>
+        <div class="col-md-3">
+            <input type="text" name="ubicacion_ciudad" class="form-control" placeholder="Ubicación / Ciudad" value="{{ request('ubicacion_ciudad') }}">
+        </div>
+        <div class="col-md-1 d-grid">
+            <button type="submit" class="btn btn-primary">Filtrar</button>
+        </div>
+    </form>
+</div>
 
-@if(isset($servicios) && !$servicios->isEmpty())
-    <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-3 mb-4">
-        @foreach($servicios as $servicio)
-            <div class="col">
-                <div class="card card-servicio">
-                    @php
-                        $imgExt = !empty($servicio->imagen_servicio) ? strtolower(pathinfo($servicio->imagen_servicio, PATHINFO_EXTENSION)) : null;
-                        $imgAllowed = ['jpg','jpeg','png','gif','webp','svg'];
-                    @endphp
-                    @if(!empty($servicio->imagen_servicio) && in_array($imgExt, $imgAllowed))
-                        <div class="card-header-img">
-                            <img src="{{ asset($servicio->imagen_servicio) }}" alt="{{ $servicio->nombre_servicio }}">
-                        </div>
-                    @else
-                        <div class="card-header-color">🔧</div>
-                    @endif
+<div id="servicios-container">
+    @include('publicidad.partials.servicios-list')
+</div>
 
-                    <div class="card-body">
-                        <h5 class="titulo-servicio">{{ $servicio->nombre_servicio }}</h5>
-                        <p class="empresa-nombre">{{ $servicio->nombre_empresa ?? 'Empresa' }}</p>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const form = document.getElementById('servicios-filters');
+    const container = document.getElementById('servicios-container');
 
-                        <div class="badges-container">
-                            <span class="badge-custom badge-categoria">{{ $servicio->categoria }}</span>
-                        </div>
+    form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        const data = new FormData(form);
+        const params = new URLSearchParams();
+        for (const pair of data.entries()) {
+            if (pair[1]) params.append(pair[0], pair[1]);
+        }
 
-                        <p class="descripcion-servicio">
-                            {{ Str::limit($servicio->descripcion, 120) }}
-                        </p>
-
-                        <div class="info-footer">
-                            <span class="contacto-badge">📧 {{ Str::limit($servicio->correo_contacto ?? 'No disponible', 30) }}</span>
-                            <span class="contacto-badge">☎️ {{ $servicio->telefono_contacto ?? 'No disponible' }}</span>
-                        </div>
-
-                        @if(!empty($servicio->requisitos))
-                            <div class="requisitos-note">
-                                <strong>ℹ️ Requisitos:</strong> {{ Str::limit($servicio->requisitos, 80) }}
-                            </div>
-                        @endif
-
-                        <a href="{{ url('detalle-servicio/'.$servicio->id_publico_servicio) }}" class="btn-detalle">Ver Detalles →</a>
-                    </div>
-                </div>
-            </div>
-        @endforeach
-    </div>
-@else
-    <div class="empty-state">
-        <div class="empty-state-icon">🌟</div>
-        <h3>No hay servicios disponibles</h3>
-        <p>En este momento estamos preparando el catálogo de servicios. Pronto tendremos disponibles los mejores proveedores de servicios en tu área.</p>
-    </div>
-@endif
+        fetch(window.location.pathname + '?' + params.toString(), {
+            headers: { 'X-Requested-With': 'XMLHttpRequest' }
+        }).then(r => r.json()).then(json => {
+            if (json.html !== undefined) {
+                container.innerHTML = json.html;
+            }
+        }).catch(err => console.error(err));
+    });
+});
+</script>
 </div>
 
 @endsection

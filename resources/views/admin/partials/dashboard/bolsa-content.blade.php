@@ -31,15 +31,15 @@
                 <div class="row gx-3 gy-3">
                     <div class="col-sm-6 col-md-4">
                         <label class="form-label text-secondary">Empresa</label>
-                        <input type="text" name="empresa" value="{{ $filters['empresa'] }}" class="form-control form-control-solid" placeholder="Filtrar por empresa" />
+                        <input type="text" name="empresa" value="{{ data_get($filters, 'empresa', '') }}" class="form-control form-control-solid" placeholder="Filtrar por empresa" />
                     </div>
                     <div class="col-sm-6 col-md-4">
                         <label class="form-label text-secondary">Estado</label>
                         <select name="estado" class="form-select form-select-solid">
                             <option value="">Todos</option>
-                            <option value="activa" {{ $filters['estado'] === 'activa' ? 'selected' : '' }}>Activa</option>
-                            <option value="finalizada" {{ $filters['estado'] === 'finalizada' ? 'selected' : '' }}>Finalizada</option>
-                            <option value="vencida" {{ $filters['estado'] === 'vencida' ? 'selected' : '' }}>Vencida</option>
+                            <option value="activa" {{ data_get($filters, 'estado', '') === 'activa' ? 'selected' : '' }}>Activa</option>
+                            <option value="finalizada" {{ data_get($filters, 'estado', '') === 'finalizada' ? 'selected' : '' }}>Finalizada</option>
+                            <option value="vencida" {{ data_get($filters, 'estado', '') === 'vencida' ? 'selected' : '' }}>Vencida</option>
                         </select>
                     </div>
                     <div class="col-sm-6 col-md-4">
@@ -47,7 +47,7 @@
                         <select name="categoria" class="form-select form-select-solid">
                             <option value="">Todas</option>
                             @foreach($categories as $category)
-                                <option value="{{ $category }}" {{ $filters['categoria'] === $category ? 'selected' : '' }}>{{ $category }}</option>
+                                <option value="{{ $category }}" {{ data_get($filters, 'categoria', '') === $category ? 'selected' : '' }}>{{ $category }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -56,17 +56,17 @@
                         <select name="modalidad" class="form-select form-select-solid">
                             <option value="">Todas</option>
                             @foreach($modalidades as $modalidad)
-                                <option value="{{ $modalidad }}" {{ $filters['modalidad'] === $modalidad ? 'selected' : '' }}>{{ $modalidad }}</option>
+                                <option value="{{ $modalidad }}" {{ data_get($filters, 'modalidad', '') === $modalidad ? 'selected' : '' }}>{{ $modalidad }}</option>
                             @endforeach
                         </select>
                     </div>
                     <div class="col-sm-6 col-md-4">
                         <label class="form-label text-secondary">Desde</label>
-                        <input type="date" name="desde" value="{{ $filters['desde'] }}" class="form-control form-control-solid" />
+                        <input type="date" name="desde" value="{{ !empty(data_get($filters, 'desde', '')) ? \Illuminate\Support\Carbon::parse(data_get($filters, 'desde', ''))->format('Y-m-d') : '' }}" class="form-control form-control-solid" autocomplete="off" />
                     </div>
                     <div class="col-sm-6 col-md-4">
                         <label class="form-label text-secondary">Hasta</label>
-                        <input type="date" name="hasta" value="{{ $filters['hasta'] }}" class="form-control form-control-solid" />
+                        <input type="date" name="hasta" value="{{ !empty(data_get($filters, 'hasta', '')) ? \Illuminate\Support\Carbon::parse(data_get($filters, 'hasta', ''))->format('Y-m-d') : '' }}" class="form-control form-control-solid" autocomplete="off" />
                     </div>
                 </div>
             </form>

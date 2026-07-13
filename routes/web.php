@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BolsaTrabajoController;
@@ -23,13 +24,37 @@ Route::get('/publicidad', fn () => redirect('/publicidad/bolsa-trabajo'));
 Route::get('/publicidad/bolsa-trabajo', [BolsaTrabajoController::class, 'publicidadBolsaTrabajo']);
 Route::get('/publicidad/productos', [ProductoController::class, 'publicidadProductos']);
 Route::get('/publicidad/productos/{id}', [ProductoController::class, 'detalleProducto']);
-Route::get('/publicidad/servicios', function () {
-    $servicios = DB::table('servicios_publicos')
+Route::get('/publicidad/servicios', function (Request $request) {
+    $query = DB::table('servicios_publicos')
         ->select('servicios_publicos.*', 'id_publico_servicio as id')
         ->where('estado', 'Publicado')
-        ->whereDate('fecha_fin', '>=', now()->format('Y-m-d'))
-        ->orderByDesc('fecha_publicacion')
-        ->get();
+        ->whereDate('fecha_fin', '>=', now()->format('Y-m-d'));
+
+    $filters = $request->only(['q', 'categoria', 'ubicacion_ciudad']);
+
+    if (!empty($filters['q'])) {
+        $q = trim($filters['q']);
+        $query->where(function ($sub) use ($q) {
+            $sub->where('nombre_servicio', 'like', "%{$q}%")
+                ->orWhere('descripcion', 'like', "%{$q}%")
+                ->orWhere('nombre_empresa', 'like', "%{$q}%");
+        });
+    }
+
+    if (!empty($filters['categoria'])) {
+        $query->where('categoria', $filters['categoria']);
+    }
+
+    if (!empty($filters['ubicacion_ciudad'])) {
+        $query->where('ubicacion_ciudad', $filters['ubicacion_ciudad']);
+    }
+
+    $servicios = $query->orderByDesc('fecha_publicacion')->get();
+
+    if ($request->ajax()) {
+        $html = view('publicidad.partials.servicios-list', compact('servicios'))->render();
+        return response()->json(['html' => $html]);
+    }
 
     return view('publicidad.servicios', compact('servicios'));
 });

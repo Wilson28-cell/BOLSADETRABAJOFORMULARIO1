@@ -6,6 +6,7 @@ use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\StoreServiceRequest;
 use App\UseCases\Public\ProductoService;
 use Illuminate\Support\Carbon;
+use Illuminate\Http\Request;
 
 class ProductoController extends Controller
 {
@@ -143,9 +144,16 @@ class ProductoController extends Controller
     // PUBLICIDAD PRODUCTOS
     // =====================================================
 
-    public function publicidadProductos()
+    public function publicidadProductos(Request $request)
     {
-        $productos = $this->productoService->listPublicProducts();
+        $filters = $request->only(['q', 'categoria', 'ubicacion_ciudad']);
+
+        $productos = $this->productoService->listPublicProducts($filters);
+
+        if ($request->ajax()) {
+            $html = view('publicidad.partials.productos-list', compact('productos'))->render();
+            return response()->json(['html' => $html]);
+        }
 
         return view('publicidad.productos', compact('productos'));
     }

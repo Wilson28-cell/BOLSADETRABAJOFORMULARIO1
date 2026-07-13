@@ -4,12 +4,12 @@
 
 <style>
     .admin-header {
-        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        background: linear-gradient(135deg, #004a99 0%, #1d6fb8 100%);
         color: white;
         padding: 30px;
         border-radius: 15px;
         margin-bottom: 30px;
-        box-shadow: 0 8px 25px rgba(245, 87, 108, 0.15);
+        box-shadow: 0 8px 25px rgba(0, 74, 153, 0.15);
     }
 
     .admin-header h2 {
@@ -27,7 +27,7 @@
     }
 
     .filter-card .card-header {
-        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        background: linear-gradient(135deg, #004a99 0%, #1d6fb8 100%);
         color: white;
         border: none;
         border-radius: 15px 15px 0 0;
@@ -60,7 +60,7 @@
     }
 
     .btn-primary-custom {
-        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        background: linear-gradient(135deg, #004a99 0%, #1d6fb8 100%);
         border: none;
         font-weight: 600;
         border-radius: 10px;
@@ -69,7 +69,7 @@
     .btn-primary-custom:hover {
         opacity: 0.9;
         transform: translateY(-2px);
-        box-shadow: 0 5px 15px rgba(245, 87, 108, 0.4);
+        box-shadow: 0 5px 15px rgba(0, 74, 153, 0.4);
     }
 
     .table-card {
@@ -85,7 +85,7 @@
     }
 
     .table thead {
-        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        background: linear-gradient(135deg, #004a99 0%, #1d6fb8 100%);
         color: white;
     }
 
@@ -328,7 +328,7 @@
                     @foreach($productos as $producto)
                     <tr>
                         <td>
-                            <span class="fw-bold" style="color: #f5576c;">{{ $producto->nombre_empresa ?? 'N/A' }}</span>
+                            <span class="fw-bold" style="color: #004a99;">{{ $producto->nombre_empresa ?? 'N/A' }}</span>
                         </td>
                         <td>{{ $producto->nombre_producto }}</td>
                         <td>

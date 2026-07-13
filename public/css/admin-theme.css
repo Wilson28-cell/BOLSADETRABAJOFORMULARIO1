@@ -1,19 +1,19 @@
 /* Estilo institucional moderno para todo el proyecto */
 
 :root {
-    --color-institucional: #2563EB;
-    --color-azul-oscuro: #081A3A;
-    --color-azul-profundo: #0F172A;
-    --color-azul-brillante: #2563EB;
-    --color-dorado: #F59E0B;
+    --color-institucional: #0b3b6f;
+    --color-azul-oscuro: #04122a;
+    --color-azul-profundo: #08305a;
+    --color-azul-brillante: #1e63f2;
+    --color-dorado: #f4b942;
     --color-blanco: #FFFFFF;
     --color-oscuro: #1E3A5F;
     --color-fondo: #F4F6F9;
     --color-verde: #198754;
     --color-gris: #8A95A6;
     --color-gris-claro: #E8EDF4;
-    --color-borde: rgba(37, 99, 235, 0.22);
-    --color-sombra: rgba(13, 110, 253, 0.18);
+    --color-borde: rgba(30, 99, 183, 0.22);
+    --color-sombra: rgba(3, 46, 90, 0.2);
 }
 
 html {
@@ -23,9 +23,10 @@ html {
 body {
     margin: 0;
     min-height: 100%;
-    font-family: 'Poppins', Arial, sans-serif;
-    background-color: var(--color-fondo);
-    color: var(--color-oscuro);
+    font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+    background: linear-gradient(180deg, #071D49 0%, #0B2D6B 55%, #123C7A 100%);
+    color: var(--color-blanco);
+    -webkit-font-smoothing:antialiased;
 }
 
 a {
@@ -93,29 +94,29 @@ textarea {
     transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
 }
 
-.btn:hover {
-    transform: translateY(-1px);
+.btn-explorar {
+    padding: 14px 32px;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #FFFFFF;
+    background: linear-gradient(135deg, var(--color-azul-brillante) 0%, var(--color-azul-profundo) 100%);
+    border: 1.5px solid rgba(30, 99, 183, 0.5);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    box-shadow: 0 4px 16px rgba(8, 48, 90, 0.28),
+                inset 0 1px 1px rgba(255, 255, 255, 0.12);
+    font-family: 'Poppins', sans-serif;
 }
-
-.btn-primary {
-    background-color: var(--color-institucional) !important;
-    border-color: var(--color-institucional) !important;
-    color: var(--color-blanco) !important;
-    box-shadow: 0 10px 20px rgba(13, 110, 253, 0.18);
+.btn-explorar:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px rgba(8, 48, 90, 0.46),
+                0 0 20px rgba(30, 99, 183, 0.28),
+                inset 0 1px 1px rgba(255, 255, 255, 0.18);
+    border-color: rgba(30, 99, 183, 0.8);
 }
-
-.btn-outline-primary {
-    color: var(--color-institucional) !important;
-    border-color: var(--color-institucional) !important;
-}
-
-.btn-outline-primary:hover {
-    background: rgba(13, 110, 253, 0.08) !important;
-}
-
-.btn-success {
-    background-color: var(--color-verde) !important;
-    border-color: var(--color-verde) !important;
     color: var(--color-blanco) !important;
 }
 
@@ -222,9 +223,9 @@ label {
     border-radius: 24px;
     overflow: hidden;
     transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease, background 0.35s ease;
-    border: 1px solid rgba(37, 99, 235, 0.18);
-    background: rgba(8, 26, 58, 0.78);
-    box-shadow: 0 22px 50px rgba(8, 26, 58, 0.16);
+    border: 1px solid rgba(0, 74, 153, 0.16);
+    background: linear-gradient(145deg, #ffffff 0%, #f6f9fc 100%);
+    box-shadow: 0 12px 30px rgba(0, 74, 153, 0.08);
     backdrop-filter: blur(10px);
 }
 
@@ -237,9 +238,9 @@ label {
 .login-card:hover,
 .opcion-card:hover {
     transform: translateY(-6px);
-    box-shadow: 0 30px 80px rgba(37, 99, 235, 0.24);
-    border-color: rgba(37, 99, 235, 0.45);
-    background: rgba(8, 26, 58, 0.92);
+    box-shadow: 0 18px 38px rgba(0, 74, 153, 0.12);
+    border-color: rgba(0, 74, 153, 0.22);
+    background: linear-gradient(145deg, #fdfefe 0%, #eef4fb 100%);
 }
 
 .page-section {
@@ -252,11 +253,11 @@ label {
     justify-content: center;
     padding: 0.35rem 0.75rem;
     border-radius: 999px;
-    background: rgba(30, 144, 255, 0.16);
-    color: #e7f1ff;
+    background: rgba(0, 74, 153, 0.08);
+    color: #004a99;
     font-weight: 700;
     font-size: 0.78rem;
-    border: 1px solid rgba(30, 144, 255, 0.24);
+    border: 1px solid rgba(0, 74, 153, 0.14);
 }
 
 .row.row-cols-1.row-cols-md-2.row-cols-xl-3.g-3 > .col {
@@ -264,7 +265,7 @@ label {
 }
 
 .publicidad-page {
-    background: radial-gradient(circle at top center, rgba(13, 110, 253, 0.16), transparent 34%), linear-gradient(180deg, #04112a 0%, #061930 100%);
+    background: linear-gradient(180deg, #f4f7f6 0%, #eef3f7 100%);
     padding: 1rem 1rem 1.5rem;
     min-height: 100vh;
 }
@@ -277,28 +278,37 @@ label {
     display: inline-flex;
     padding: 0.55rem 1rem;
     border-radius: 999px;
-    background: rgba(255, 255, 255, 0.06);
-    color: #dbe9ff;
+    background: rgba(0, 74, 153, 0.06);
+    color: #004a99;
     font-size: 0.95rem;
     font-weight: 700;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(0, 74, 153, 0.12);
     letter-spacing: 0.04em;
     text-transform: uppercase;
 }
 
 .publicidad-page .hero-banner {
     margin-bottom: 12px;
-    border: 1px solid rgba(37, 99, 235, 0.32);
-    box-shadow: 0 24px 64px rgba(13, 110, 253, 0.3);
+    border: 1px solid rgba(0, 74, 153, 0.12);
+    box-shadow: 0 10px 24px rgba(0, 74, 153, 0.08);
     overflow: hidden;
+    background: linear-gradient(135deg, #ffffff 0%, #f4f7f6 100%) !important;
+}
+
+.publicidad-page .hero-banner h1,
+.publicidad-page .hero-banner p {
+    color: #004a99 !important;
+}
+
+.publicidad-page .hero-banner p {
+    color: #4b5563 !important;
 }
 
 .publicidad-page .hero-banner::before {
     content: '';
     position: absolute;
     inset: 0;
-    background: radial-gradient(circle at 10% 10%, rgba(59, 130, 246, 0.15), transparent 24%),
-                radial-gradient(circle at 90% 20%, rgba(59, 130, 246, 0.12), transparent 22%);
+    background: linear-gradient(135deg, rgba(0, 74, 153, 0.08), transparent 45%, rgba(212, 175, 55, 0.08));
     pointer-events: none;
 }
 
@@ -306,7 +316,7 @@ label {
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), transparent 25%, rgba(13, 110, 253, 0.08) 100%);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.3), transparent 25%, rgba(0, 74, 153, 0.04) 100%);
     pointer-events: none;
 }
 
@@ -314,12 +324,13 @@ label {
     font-size: clamp(1.8rem, 3vw, 2.1rem);
     line-height: 1.06;
     margin-bottom: 0.5rem;
+    color: #004a99;
 }
 
 .publicidad-page .hero-banner p {
     font-size: 0.95rem;
     max-width: 620px;
-    color: rgba(235, 245, 255, 0.92);
+    color: #4b5563;
     margin-bottom: 0;
 }
 
@@ -335,9 +346,9 @@ label {
 .card-trabajo,
 .card-producto,
 .card-servicio {
-    border: 1px solid rgba(30, 110, 235, 0.28);
-    background: rgba(8, 18, 42, 0.96);
-    box-shadow: 0 20px 52px rgba(13, 110, 253, 0.24);
+    border: 1px solid rgba(0, 74, 153, 0.14);
+    background: linear-gradient(145deg, #ffffff 0%, #f7fbff 100%);
+    box-shadow: 0 10px 24px rgba(0, 74, 153, 0.08);
     backdrop-filter: blur(20px);
     display: flex;
     flex-direction: column;
@@ -362,14 +373,14 @@ label {
     font-size: 1.18rem;
     font-weight: 800;
     margin-bottom: 0.3rem;
-    color: #f8fbff;
+    color: #004a99;
 }
 
 .card-trabajo .empresa-nombre,
 .card-producto .empresa-nombre,
 .card-servicio .empresa-nombre {
     margin-bottom: 0.4rem;
-    color: rgba(157, 199, 255, 0.95);
+    color: #4b5563;
     font-weight: 700;
     font-size: 0.98rem;
 }
@@ -377,7 +388,7 @@ label {
 .card-trabajo .descripcion-oferta,
 .card-producto .descripcion-producto,
 .card-servicio .descripcion-servicio {
-    color: #b8c8ef;
+    color: #5f6b7a;
     margin-bottom: 0;
     line-height: 1.45;
     min-height: 3.8rem;
@@ -391,6 +402,22 @@ label {
     flex-wrap: wrap;
     gap: 0.35rem;
     margin-bottom: 0.45rem;
+}
+
+.publicidad-page .badge-custom,
+.publicidad-page .badge-custom.badge-categoria,
+.publicidad-page .badge-custom.badge-modalidad {
+    background: rgba(0, 74, 153, 0.08) !important;
+    color: #004a99 !important;
+    border: 1px solid rgba(0, 74, 153, 0.14) !important;
+}
+
+.publicidad-page .contacto-badge,
+.publicidad-page .tiempo-badge,
+.publicidad-page .info-footer span {
+    background: rgba(0, 74, 153, 0.05) !important;
+    color: #004a99 !important;
+    border: 1px solid rgba(0, 74, 153, 0.1) !important;
 }
 
 .info-footer {
@@ -408,11 +435,11 @@ label {
     gap: 0.35rem;
     padding: 0.42rem 0.65rem;
     border-radius: 999px;
-    background: rgba(255, 255, 255, 0.06);
-    color: #cbd5ee;
+    background: rgba(0, 74, 153, 0.05);
+    color: #004a99;
     font-size: 0.8rem;
     font-weight: 600;
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(0, 74, 153, 0.1);
 }
 
 .buttons-group {
@@ -459,11 +486,17 @@ label {
     padding: 0.8rem 0.95rem;
     border-radius: 14px;
     text-decoration: none;
-    background: linear-gradient(135deg, rgba(13, 110, 253, 0.92) 0%, rgba(22, 94, 210, 0.98) 100%);
+    background: linear-gradient(135deg, #004a99 0%, #003370 100%);
     color: white;
     font-weight: 700;
-    box-shadow: 0 12px 24px rgba(13, 110, 253, 0.28);
+    box-shadow: 0 12px 24px rgba(0, 74, 153, 0.22);
     transition: transform 0.22s ease, box-shadow 0.22s ease, background 0.22s ease;
+}
+
+.publicidad-page .btn-detalle {
+    background: linear-gradient(135deg, #004a99 0%, #003370 100%) !important;
+    color: white !important;
+    box-shadow: 0 10px 20px rgba(0, 74, 153, 0.18) !important;
 }
 
 .btn-detalle:hover,
@@ -494,15 +527,16 @@ label {
 }
 
 .hero-banner {
-    background: linear-gradient(135deg, rgba(5, 18, 45, 0.98) 0%, rgba(14, 42, 88, 0.98) 100%);
-    color: white;
+    background: linear-gradient(135deg, #f8fafc 0%, #eef3f7 100%);
+    color: #004a99;
     border-radius: 24px;
     padding: 24px 26px;
-    box-shadow: 0 22px 50px rgba(13, 110, 253, 0.24);
+    box-shadow: 0 10px 24px rgba(0, 74, 153, 0.08);
     margin-bottom: 18px;
     position: relative;
     overflow: hidden;
     min-height: 138px;
+    border: 1px solid rgba(0, 74, 153, 0.12);
 }
 
 .hero-banner.compact-hero {
@@ -532,7 +566,7 @@ label {
 
 .hero-banner h1,
 .hero-banner p {
-    color: white;
+    color: #004a99;
     margin-bottom: 0.55rem;
 }
 
@@ -545,7 +579,41 @@ label {
 .hero-banner p {
     max-width: 720px;
     font-size: 1rem;
-    color: rgba(235, 245, 255, 0.88);
+    color: #4b5563;
+}
+
+.publicidad-page .hero-banner {
+    background: linear-gradient(135deg, #ffffff 0%, #f4f7f6 100%) !important;
+    color: #004a99 !important;
+    border: 1px solid rgba(0, 74, 153, 0.12) !important;
+    box-shadow: 0 10px 24px rgba(0, 74, 153, 0.08) !important;
+}
+
+.publicidad-page .hero-banner h1,
+.publicidad-page .hero-banner p {
+    color: #004a99 !important;
+}
+
+.publicidad-page .hero-banner p {
+    color: #4b5563 !important;
+}
+
+.publicidad-page .hero-banner h1,
+.publicidad-page .hero-banner p {
+    color: #004a99;
+}
+
+.publicidad-page .hero-banner p {
+    color: #4b5563;
+}
+
+.publicidad-page .section-label,
+.publicidad-page .badge-custom,
+.publicidad-page .badge-custom.badge-modalidad,
+.publicidad-page .badge-custom.badge-categoria {
+    background: rgba(0, 74, 153, 0.08);
+    color: #004a99;
+    border: 1px solid rgba(0, 74, 153, 0.14);
 }
 
 .section-header {
@@ -1267,6 +1335,76 @@ label {
 /* ===========================
    PALETA INSTITUCIONAL AVANZADA
    =========================== */
+/* Layout enhancements for Porvenir Produce */
+.porvenir-grid {
+    display: grid;
+    grid-template-columns: 1fr 420px;
+    gap: 32px;
+    align-items: center;
+}
+
+.porvenir-left {
+    text-align: left;
+}
+
+.porvenir-right {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hero-image {
+    width: 100%;
+    height: 520px;
+    border-radius: 20px;
+    background-image: url('/fondoPrincipal/escudo.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-color: transparent;
+    box-shadow: 0 30px 80px rgba(2, 6, 23, 0.55);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.porvenir-stats {
+    display: flex;
+    gap: 18px;
+    margin-top: 28px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.stat-item {
+    background: rgba(255, 255, 255, 0.03);
+    padding: 12px 18px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    min-width: 160px;
+    text-align: center;
+}
+
+.stat-value {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: #FFFFFF;
+}
+
+.stat-label {
+    font-size: 0.95rem;
+    color: #C5D4EA;
+    margin-top: 6px;
+}
+
+@media (max-width: 1100px) {
+    .porvenir-grid {
+        grid-template-columns: 1fr;
+    }
+    .hero-image {
+        height: 360px;
+        margin-top: 20px;
+    }
+}
+
 :root {
     --color-azul-oscuro: #081A3A;
     --color-azul-institucional: #0F2E6D;
@@ -1285,10 +1423,10 @@ label {
     left: 0;
     right: 0;
     z-index: 100;
-    background: linear-gradient(180deg, rgba(8, 26, 58, 0.95) 0%, rgba(15, 46, 109, 0.85) 100%);
-    backdrop-filter: blur(8px);
-    border-bottom: 1px solid rgba(245, 158, 11, 0.4);
-    box-shadow: 0 4px 16px rgba(8, 26, 58, 0.3);
+    background: linear-gradient(90deg, #0B2D6B 0%, rgba(11,45,107,0.9) 60%);
+    backdrop-filter: blur(6px) saturate(120%);
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    box-shadow: 0 6px 18px rgba(2,8,23,0.35);
     font-family: 'Poppins', sans-serif;
 }
 
@@ -1324,15 +1462,15 @@ label {
 }
 
 .logo-circle {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #2563EB 0%, #0F2E6D 100%);
+    width: 54px;
+    height: 54px;
+    border-radius: 12px;
+    background: rgba(255,255,255,0.04);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 28px;
-    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
+    font-size: 26px;
+    box-shadow: 0 6px 18px rgba(2,8,23,0.45);
 }
 
 .logo-text {
@@ -1380,10 +1518,7 @@ label {
 .produce-label {
     font-size: 1.3rem;
     font-weight: 800;
-    background: linear-gradient(135deg, #F59E0B 0%, #F59E0B 50%, #2563EB 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: var(--color-dorado);
     letter-spacing: -0.02em;
 }
 
@@ -1420,13 +1555,13 @@ label {
     align-items: center;
     justify-content: center;
     font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
-    margin-top: 80px;
+    margin-top: 64px;
 }
 
 .hero-background {
     position: absolute;
     inset: 0;
-    background: linear-gradient(135deg, #081A3A 0%, #0F2E6D 35%, #081A3A 100%);
+    background: linear-gradient(135deg, var(--color-azul-oscuro) 0%, var(--color-azul-profundo) 35%, var(--color-azul-oscuro) 100%);
     background-size: 400% 400%;
     animation: gradientShift 15s ease infinite;
 }
@@ -1445,9 +1580,9 @@ label {
     inset: 0;
     background: linear-gradient(
         180deg,
-        rgba(8, 26, 58, 0.5) 0%,
-        rgba(15, 46, 109, 0.7) 50%,
-        rgba(8, 26, 58, 0.6) 100%
+        rgba(4, 18, 42, 0.55) 0%,
+        rgba(8, 48, 90, 0.7) 50%,
+        rgba(4, 18, 42, 0.6) 100%
     );
     backdrop-filter: blur(0px);
 }
@@ -1483,20 +1618,20 @@ label {
 .badge-superior {
     display: inline-block;
     margin-bottom: 32px;
-    color: #60A5FA;
+    color: var(--color-azul-brillante);
     letter-spacing: 0.12em;
     font-size: 0.9rem;
     font-weight: 700;
     text-transform: uppercase;
     padding: 12px 24px;
     background: linear-gradient(135deg, 
-        rgba(37, 99, 235, 0.15) 0%, 
-        rgba(37, 99, 235, 0.08) 100%);
+        rgba(30, 99, 183, 0.12) 0%, 
+        rgba(30, 99, 183, 0.06) 100%);
     border-radius: 50px;
-    border: 1.5px solid rgba(37, 99, 235, 0.5);
+    border: 1.5px solid rgba(30, 99, 183, 0.45);
     backdrop-filter: blur(8px);
-    box-shadow: 0 4px 16px rgba(37, 99, 235, 0.2),
-                inset 0 1px 1px rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 16px rgba(3, 46, 90, 0.18),
+                inset 0 1px 1px rgba(255, 255, 255, 0.06);
     animation: badgeFloat 0.8s ease-out;
 }
 
@@ -1572,18 +1707,18 @@ label {
     padding: 48px 32px;
     border-radius: 24px;
     background: linear-gradient(135deg,
-        rgba(255, 255, 255, 0.09) 0%,
-        rgba(37, 99, 235, 0.05) 100%);
-    border: 1.5px solid rgba(37, 99, 235, 0.4);
+        rgba(255, 255, 255, 0.06) 0%,
+        rgba(10, 56, 110, 0.06) 100%);
+    border: 1.5px solid rgba(10, 56, 110, 0.28);
     backdrop-filter: blur(12px);
     color: #F8FAFC;
     text-decoration: none;
     cursor: pointer;
     overflow: hidden;
     transition: all 0.5s cubic-bezier(0.23, 1, 0.320, 1);
-    box-shadow: 0 8px 32px rgba(8, 26, 58, 0.3),
-                0 0 50px rgba(37, 99, 235, 0) inset,
-                inset 0 1px 1px rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(4, 18, 42, 0.32),
+                0 0 40px rgba(14, 66, 140, 0.03) inset,
+                inset 0 1px 1px rgba(255, 255, 255, 0.06);
     animation: cardPopIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) both;
 }
 
@@ -1629,20 +1764,20 @@ label {
     left: 0;
     right: 0;
     height: 2px;
-    background: linear-gradient(90deg, transparent, #F59E0B, transparent);
+    background: linear-gradient(90deg, transparent, var(--color-dorado), transparent);
     opacity: 0;
     transition: opacity 0.5s ease;
 }
 
 .porvenir-card:hover {
     transform: translateY(-16px) scale(1.02);
-    border-color: rgba(37, 99, 235, 0.8);
+    border-color: rgba(30, 99, 183, 0.9);
     background: linear-gradient(135deg,
-        rgba(255, 255, 255, 0.15) 0%,
-        rgba(37, 99, 235, 0.12) 100%);
-    box-shadow: 0 20px 60px rgba(37, 99, 235, 0.35),
-                0 0 60px rgba(37, 99, 235, 0.25),
-                inset 0 1px 1px rgba(255, 255, 255, 0.15);
+        rgba(255, 255, 255, 0.14) 0%,
+        rgba(8, 48, 90, 0.14) 100%);
+    box-shadow: 0 20px 60px rgba(8, 48, 90, 0.28),
+                0 0 60px rgba(30, 99, 183, 0.18),
+                inset 0 1px 1px rgba(255, 255, 255, 0.12);
 }
 
 .porvenir-card:hover::before {
@@ -1668,12 +1803,12 @@ label {
     justify-content: center;
     border-radius: 20px;
     background: linear-gradient(135deg,
-        rgba(37, 99, 235, 0.2) 0%,
-        rgba(245, 158, 11, 0.1) 100%);
-    border: 1.5px solid rgba(37, 99, 235, 0.4);
-    color: #60A5FA;
+        rgba(30, 99, 183, 0.18) 0%,
+        rgba(244, 185, 66, 0.08) 100%);
+    border: 1.5px solid rgba(30, 99, 183, 0.36);
+    color: var(--color-azul-brillante);
     transition: all 0.5s cubic-bezier(0.23, 1, 0.320, 1);
-    box-shadow: 0 4px 20px rgba(37, 99, 235, 0.15);
+    box-shadow: 0 4px 20px rgba(8, 48, 90, 0.14);
 }
 
 .card-icon svg {
@@ -1685,13 +1820,13 @@ label {
 
 .porvenir-card:hover .card-icon {
     background: linear-gradient(135deg,
-        rgba(37, 99, 235, 0.35) 0%,
-        rgba(245, 158, 11, 0.2) 100%);
-    border-color: rgba(37, 99, 235, 0.7);
+        rgba(30, 99, 183, 0.36) 0%,
+        rgba(244, 185, 66, 0.22) 100%);
+    border-color: rgba(30, 99, 183, 0.72);
     transform: translateY(-8px) scale(1.15);
-    color: #F59E0B;
-    box-shadow: 0 12px 32px rgba(37, 99, 235, 0.4),
-                0 0 20px rgba(245, 158, 11, 0.2);
+    color: var(--color-dorado);
+    box-shadow: 0 12px 32px rgba(8, 48, 90, 0.36),
+                0 0 20px rgba(244, 185, 66, 0.18);
 }
 
 .porvenir-card:hover .card-icon svg {
@@ -1777,6 +1912,69 @@ label {
 
 .btn-explorar:active {
     transform: translateY(-1px);
+}
+
+/* ===========================
+   OVERRIDES ESPECÍFICOS PARA PRODUCTOS / PUBLICACIONES
+   =========================== */
+.publicidad-page {
+    background: linear-gradient(180deg, #f5f8fc 0%, #eef4fb 100%) !important;
+}
+
+.publicidad-page .hero-banner {
+    background: linear-gradient(135deg, #ffffff 0%, #f4f7f6 100%) !important;
+    border: 1px solid rgba(0, 74, 153, 0.14) !important;
+    box-shadow: 0 10px 24px rgba(0, 74, 153, 0.08) !important;
+}
+
+.publicidad-page .hero-banner h1,
+.publicidad-page .hero-banner p,
+.publicidad-page .section-label,
+.publicidad-page .titulo-producto,
+.publicidad-page .empresa-nombre,
+.publicidad-page .descripcion-producto,
+.publicidad-page .badge-custom,
+.publicidad-page .contacto-badge,
+.publicidad-page .tiempo-badge,
+.publicidad-page .info-footer span,
+.publicidad-page .btn-detalle {
+    color: #004a99 !important;
+}
+
+.publicidad-page .hero-banner p,
+.publicidad-page .empresa-nombre,
+.publicidad-page .descripcion-producto,
+.publicidad-page .contacto-badge,
+.publicidad-page .tiempo-badge,
+.publicidad-page .info-footer span {
+    color: #4b5563 !important;
+}
+
+.publicidad-page .card-producto,
+.publicidad-page .card-servicio,
+.publicidad-page .card-trabajo {
+    background: linear-gradient(145deg, #ffffff 0%, #f7fbff 100%) !important;
+    border: 1px solid rgba(0, 74, 153, 0.16) !important;
+    box-shadow: 0 12px 28px rgba(0, 74, 153, 0.08) !important;
+}
+
+.publicidad-page .card-producto .card-body,
+.publicidad-page .card-servicio .card-body,
+.publicidad-page .card-trabajo .card-body {
+    background: transparent !important;
+}
+
+.publicidad-page .badge-custom,
+.publicidad-page .badge-custom.badge-categoria,
+.publicidad-page .badge-custom.badge-modalidad {
+    background: rgba(0, 74, 153, 0.08) !important;
+    border: 1px solid rgba(0, 74, 153, 0.14) !important;
+}
+
+.publicidad-page .btn-detalle {
+    background: linear-gradient(135deg, #004a99 0%, #003370 100%) !important;
+    color: #ffffff !important;
+    box-shadow: 0 10px 20px rgba(0, 74, 153, 0.18) !important;
 }
 
 /* ===========================
@@ -1901,3 +2099,78 @@ label {
 .icon-button {
     display: none;
 }
+
+/* ----------------------------
+   Custom Porvenir Produce theme
+   ---------------------------- */
+
+/* Typography override */
+.porvenir-title { font-family: 'Poppins', sans-serif; font-weight:800; }
+.porvenir-subtitle, .card-description, .logo-label, .logo-name { font-family: 'Inter', sans-serif; }
+
+/* Thin decorative map and shapes in hero */
+.porvenir-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url('/fondoPrincipal/fondo.jpg');
+    background-size: cover;
+    background-position: center;
+    opacity: 0.05;
+    filter: grayscale(60%) contrast(80%);
+    pointer-events: none;
+}
+.porvenir-hero::after {
+    content: '';
+    position: absolute;
+    right: -10%;
+    top: 10%;
+    width: 420px;
+    height: 420px;
+    background: radial-gradient(circle at 30% 30%, rgba(244,180,66,0.06), rgba(255,255,255,0) 40%);
+    transform: rotate(12deg);
+    pointer-events: none;
+}
+
+/* Badge */
+.badge-superior { background: #0F3F8A; border: 1px solid #2563EB; color: #7DB4FF; padding:10px 20px; border-radius:999px; }
+
+/* Cards general */
+.porvenir-actions { display:grid; grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); gap:20px; }
+.porvenir-card { background:#123C7A; border-radius:20px; padding:28px 20px; border:1px solid rgba(255,255,255,0.08); box-shadow: 0 8px 30px rgba(2,8,23,0.45); }
+.porvenir-card:hover{ transform: translateY(-8px); box-shadow: 0 20px 50px rgba(2,8,23,0.6); }
+.porvenir-card .card-label{ font-family: 'Poppins',sans-serif; font-weight:700; }
+
+/* Accent colors */
+.porvenir-card.bolsa { --accent: #2563EB; }
+.porvenir-card.productos { --accent: #10B981; }
+.porvenir-card.servicios { --accent: #7C3AED; }
+/* escudo card removed */
+
+.porvenir-card .card-divider{ background: linear-gradient(90deg, transparent, var(--accent,#2563EB), transparent); width:60px; height:4px; margin:14px auto; border-radius:3px; }
+.porvenir-card .card-icon{ background: rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.04); color: var(--accent,#2563EB); }
+.porvenir-card .btn-explorar{ background: linear-gradient(90deg,#2563EB,#3B82F6); border-radius:12px; padding:12px 22px; }
+.porvenir-card.productos .btn-explorar{ background: linear-gradient(90deg,#10B981,#34D399); }
+.porvenir-card.servicios .btn-explorar{ background: linear-gradient(90deg,#7C3AED,#A78BFA); }
+.porvenir-card .card-icon svg{ stroke: currentColor; }
+
+/* Escudo */
+/* escudo image removed */
+
+/* Buttons global */
+.btn-explorar{ color:#fff; font-weight:700; box-shadow: 0 8px 20px rgba(2,8,23,0.35); transition: transform .24s, box-shadow .24s; }
+.btn-explorar:hover{ transform: translateY(-3px); box-shadow: 0 16px 36px rgba(2,8,23,0.5); }
+
+/* Stats */
+.porvenir-stats{ display:flex; gap:12px; margin-top:24px; flex-wrap:wrap; }
+.stat-item{ background:#163D7D; padding:12px 18px; border-radius:12px; min-width:150px; box-shadow: 0 8px 30px rgba(2,8,23,0.4); }
+.stat-value{ font-size:1.6rem; font-weight:800; }
+.stat-label{ color:#CBD5E1; margin-top:6px; }
+.stat-item.empresas .stat-value{ color:#2563EB; }
+.stat-item.vacantes .stat-value{ color:#F59E0B; }
+.stat-item.productos .stat-value{ color:#10B981; }
+.stat-item.servicios .stat-value{ color:#7C3AED; }
+
+/* Responsive adjustments */
+@media (max-width:900px){ .porvenir-grid{ grid-template-columns:1fr; } .porvenir-right{ order:2 } .porvenir-left{ order:1 } }
+
