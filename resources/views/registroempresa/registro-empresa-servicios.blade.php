@@ -116,7 +116,19 @@
 
                             <div class="form-group-custom">
                                 <label class="form-label-custom">🏷️ Categoría <span class="required-mark">*</span></label>
-                                <input type="text" name="categoria" class="form-control-custom" required placeholder="Ej: Tecnología, Limpieza, etc.">
+                                <select name="categoria" class="form-control-custom" required>
+                                    <option value="">Seleccionar categoría...</option>
+                                    <option value="Servicios Profesionales" {{ old('categoria') === 'Servicios Profesionales' ? 'selected' : '' }}>Servicios Profesionales</option>
+                                    <option value="Servicios de Transporte" {{ old('categoria') === 'Servicios de Transporte' ? 'selected' : '' }}>Servicios de Transporte</option>
+                                    <option value="Servicios de Salud y Bienestar" {{ old('categoria') === 'Servicios de Salud y Bienestar' ? 'selected' : '' }}>Servicios de Salud y Bienestar</option>
+                                    <option value="Servicios Financieros" {{ old('categoria') === 'Servicios Financieros' ? 'selected' : '' }}>Servicios Financieros</option>
+                                    <option value="Servicios de Telecomunicaciones" {{ old('categoria') === 'Servicios de Telecomunicaciones' ? 'selected' : '' }}>Servicios de Telecomunicaciones</option>
+                                    <option value="Servicios de Mantenimiento y Reparación" {{ old('categoria') === 'Servicios de Mantenimiento y Reparación' ? 'selected' : '' }}>Servicios de Mantenimiento y Reparación</option>
+                                    <option value="Servicios de Limpieza y Domésticos" {{ old('categoria') === 'Servicios de Limpieza y Domésticos' ? 'selected' : '' }}>Servicios de Limpieza y Domésticos</option>
+                                    <option value="Servicios de Hostelería y Turismo" {{ old('categoria') === 'Servicios de Hostelería y Turismo' ? 'selected' : '' }}>Servicios de Hostelería y Turismo</option>
+                                    <option value="Servicios de Alimentación" {{ old('categoria') === 'Servicios de Alimentación' ? 'selected' : '' }}>Servicios de Alimentación</option>
+                                    <option value="Servicios Públicos" {{ old('categoria') === 'Servicios Públicos' ? 'selected' : '' }}>Servicios Públicos</option>
+                                </select>
                             </div>
 
                             <div class="form-group-custom row-full">

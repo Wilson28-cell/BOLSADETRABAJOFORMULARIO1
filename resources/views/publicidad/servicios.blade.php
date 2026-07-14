@@ -20,7 +20,19 @@
             <input type="search" name="q" class="form-control" placeholder="Buscar servicios, empresa o descripción" value="{{ request('q') }}">
         </div>
         <div class="col-md-3">
-            <input type="text" name="categoria" class="form-control" placeholder="Categoría" value="{{ request('categoria') }}">
+            <select name="categoria" class="form-control">
+                <option value="">Todas</option>
+                <option value="Servicios Profesionales" {{ request('categoria') === 'Servicios Profesionales' ? 'selected' : '' }}>Servicios Profesionales</option>
+                <option value="Servicios de Transporte" {{ request('categoria') === 'Servicios de Transporte' ? 'selected' : '' }}>Servicios de Transporte</option>
+                <option value="Servicios de Salud y Bienestar" {{ request('categoria') === 'Servicios de Salud y Bienestar' ? 'selected' : '' }}>Servicios de Salud y Bienestar</option>
+                <option value="Servicios Financieros" {{ request('categoria') === 'Servicios Financieros' ? 'selected' : '' }}>Servicios Financieros</option>
+                <option value="Servicios de Telecomunicaciones" {{ request('categoria') === 'Servicios de Telecomunicaciones' ? 'selected' : '' }}>Servicios de Telecomunicaciones</option>
+                <option value="Servicios de Mantenimiento y Reparación" {{ request('categoria') === 'Servicios de Mantenimiento y Reparación' ? 'selected' : '' }}>Servicios de Mantenimiento y Reparación</option>
+                <option value="Servicios de Limpieza y Domésticos" {{ request('categoria') === 'Servicios de Limpieza y Domésticos' ? 'selected' : '' }}>Servicios de Limpieza y Domésticos</option>
+                <option value="Servicios de Hostelería y Turismo" {{ request('categoria') === 'Servicios de Hostelería y Turismo' ? 'selected' : '' }}>Servicios de Hostelería y Turismo</option>
+                <option value="Servicios de Alimentación" {{ request('categoria') === 'Servicios de Alimentación' ? 'selected' : '' }}>Servicios de Alimentación</option>
+                <option value="Servicios Públicos" {{ request('categoria') === 'Servicios Públicos' ? 'selected' : '' }}>Servicios Públicos</option>
+            </select>
         </div>
         <div class="col-md-3">
             <input type="text" name="ubicacion_ciudad" class="form-control" placeholder="Ubicación / Ciudad" value="{{ request('ubicacion_ciudad') }}">

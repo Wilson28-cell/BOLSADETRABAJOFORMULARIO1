@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreServiceRequest extends FormRequest
 {
@@ -22,7 +23,21 @@ class StoreServiceRequest extends FormRequest
             'direccion' => 'nullable',
             'documento_validacion' => 'nullable|mimes:pdf|max:10240',
             'nombre_servicio' => 'required',
-            'categoria' => 'required',
+            'categoria' => [
+                'required',
+                Rule::in([
+                    'Servicios Profesionales',
+                    'Servicios de Transporte',
+                    'Servicios de Salud y Bienestar',
+                    'Servicios Financieros',
+                    'Servicios de Telecomunicaciones',
+                    'Servicios de Mantenimiento y Reparación',
+                    'Servicios de Limpieza y Domésticos',
+                    'Servicios de Hostelería y Turismo',
+                    'Servicios de Alimentación',
+                    'Servicios Públicos',
+                ]),
+            ],
             'descripcion' => 'required',
             'ubicacion_ciudad' => 'nullable',
             'telefono_contacto' => 'nullable',

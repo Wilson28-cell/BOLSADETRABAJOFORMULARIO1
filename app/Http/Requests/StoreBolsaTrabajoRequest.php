@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreBolsaTrabajoRequest extends FormRequest
 {
@@ -22,7 +23,21 @@ class StoreBolsaTrabajoRequest extends FormRequest
             'direccion' => 'required',
             'documento_validacion' => 'required|mimes:pdf|max:10240',
             'titulo_puesto' => 'required',
-            'categoria' => 'required',
+            'categoria' => [
+                'required',
+                Rule::in([
+                    'Tecnología y Desarrollo',
+                    'Administración y Negocios',
+                    'Ventas y Marketing',
+                    'Salud y Medicina',
+                    'Finanzas y Contabilidad',
+                    'Educación y Formación',
+                    'Ingeniería y Construcción',
+                    'Hostelería y Turismo',
+                    'Logística, Transporte y Almacén',
+                    'Servicios de Seguridad y Mantenimiento',
+                ]),
+            ],
             'modalidad' => 'required',
             'ubicacion' => 'required',
             'salario' => 'required|numeric',

@@ -109,7 +109,19 @@
 
                             <div class="form-group-custom">
                                 <label class="form-label-custom">🏷️ Categoría <span class="required-mark">*</span></label>
-                                <input type="text" name="categoria" class="form-control-custom" required placeholder="Ej: Belleza, Alimentos, Ropa">
+                                <select name="categoria" class="form-control-custom" required>
+                                    <option value="">Seleccionar categoría...</option>
+                                    <option value="Alimentos y Bebidas" {{ old('categoria') === 'Alimentos y Bebidas' ? 'selected' : '' }}>Alimentos y Bebidas</option>
+                                    <option value="Moda y Calzado" {{ old('categoria') === 'Moda y Calzado' ? 'selected' : '' }}>Moda y Calzado</option>
+                                    <option value="Tecnología y Electrónica" {{ old('categoria') === 'Tecnología y Electrónica' ? 'selected' : '' }}>Tecnología y Electrónica</option>
+                                    <option value="Cuidado Personal y Belleza" {{ old('categoria') === 'Cuidado Personal y Belleza' ? 'selected' : '' }}>Cuidado Personal y Belleza</option>
+                                    <option value="Hogar y Decoración" {{ old('categoria') === 'Hogar y Decoración' ? 'selected' : '' }}>Hogar y Decoración</option>
+                                    <option value="Salud y Bienestar" {{ old('categoria') === 'Salud y Bienestar' ? 'selected' : '' }}>Salud y Bienestar</option>
+                                    <option value="Juguetes y Niños" {{ old('categoria') === 'Juguetes y Niños' ? 'selected' : '' }}>Juguetes y Niños</option>
+                                    <option value="Deportes y Aire Libre" {{ old('categoria') === 'Deportes y Aire Libre' ? 'selected' : '' }}>Deportes y Aire Libre</option>
+                                    <option value="Limpieza y Mascotas" {{ old('categoria') === 'Limpieza y Mascotas' ? 'selected' : '' }}>Limpieza y Mascotas</option>
+                                    <option value="Oficina y Papelería" {{ old('categoria') === 'Oficina y Papelería' ? 'selected' : '' }}>Oficina y Papelería</option>
+                                </select>
                             </div>
 
                             <div class="form-group-custom row-full">

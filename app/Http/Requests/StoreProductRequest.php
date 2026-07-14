@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreProductRequest extends FormRequest
 {
@@ -23,7 +24,21 @@ class StoreProductRequest extends FormRequest
             'documento_validacion' => 'required|mimes:pdf|max:10240',
             'nombre_producto' => 'required',
             'descripcion' => 'required',
-            'categoria' => 'required',
+            'categoria' => [
+                'required',
+                Rule::in([
+                    'Alimentos y Bebidas',
+                    'Moda y Calzado',
+                    'Tecnología y Electrónica',
+                    'Cuidado Personal y Belleza',
+                    'Hogar y Decoración',
+                    'Salud y Bienestar',
+                    'Juguetes y Niños',
+                    'Deportes y Aire Libre',
+                    'Limpieza y Mascotas',
+                    'Oficina y Papelería',
+                ]),
+            ],
             'ubicacion_ciudad' => 'required',
             'telefono_contacto' => 'required',
             'correo_contacto' => 'required|email',

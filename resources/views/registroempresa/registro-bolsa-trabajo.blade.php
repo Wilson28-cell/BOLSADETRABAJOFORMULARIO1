@@ -114,7 +114,19 @@
 
                             <div class="form-group-custom">
                                 <label class="form-label-custom">🏷️ Categoría <span class="required-mark">*</span></label>
-                                <input type="text" name="categoria" class="form-control-custom" required placeholder="Ej: Tecnología, Administrativo">
+                                <select name="categoria" class="form-control-custom" required>
+                                    <option value="">Seleccionar categoría...</option>
+                                    <option value="Tecnología y Desarrollo" {{ old('categoria') === 'Tecnología y Desarrollo' ? 'selected' : '' }}>Tecnología y Desarrollo</option>
+                                    <option value="Administración y Negocios" {{ old('categoria') === 'Administración y Negocios' ? 'selected' : '' }}>Administración y Negocios</option>
+                                    <option value="Ventas y Marketing" {{ old('categoria') === 'Ventas y Marketing' ? 'selected' : '' }}>Ventas y Marketing</option>
+                                    <option value="Salud y Medicina" {{ old('categoria') === 'Salud y Medicina' ? 'selected' : '' }}>Salud y Medicina</option>
+                                    <option value="Finanzas y Contabilidad" {{ old('categoria') === 'Finanzas y Contabilidad' ? 'selected' : '' }}>Finanzas y Contabilidad</option>
+                                    <option value="Educación y Formación" {{ old('categoria') === 'Educación y Formación' ? 'selected' : '' }}>Educación y Formación</option>
+                                    <option value="Ingeniería y Construcción" {{ old('categoria') === 'Ingeniería y Construcción' ? 'selected' : '' }}>Ingeniería y Construcción</option>
+                                    <option value="Hostelería y Turismo" {{ old('categoria') === 'Hostelería y Turismo' ? 'selected' : '' }}>Hostelería y Turismo</option>
+                                    <option value="Logística, Transporte y Almacén" {{ old('categoria') === 'Logística, Transporte y Almacén' ? 'selected' : '' }}>Logística, Transporte y Almacén</option>
+                                    <option value="Servicios de Seguridad y Mantenimiento" {{ old('categoria') === 'Servicios de Seguridad y Mantenimiento' ? 'selected' : '' }}>Servicios de Seguridad y Mantenimiento</option>
+                                </select>
                             </div>
 
                             <div class="form-group-custom">
